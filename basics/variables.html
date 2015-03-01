@@ -1,0 +1,138 @@
+<!DOCTYPE html>  
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<title>Getting started with Fortran</title>
+    <link rel="stylesheet" href="../stylesheets/substyles.css">
+    <link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+  <body>
+<div class="wrapper"> <header> </header>
+<header>
+
+<ul>
+<li><a href=#VariableType> Variable Types</a></li>
+<li><a href=#Characters> Characters</a></li>
+<li><a href=#UsingKind>Using kind</a></li>
+</ul>
+</header>
+<section>
+<h1>Variables and assignment</h1>
+Variables are the fundamental building blocks of any program. In Fortran, a variable name may consist of up to
+31 alphanumeric characters, of which the first character must be a letter. Underscores are allowed but not spaces or
+special characters. 
+<br><br>
+<h2 id="VariableType">Variable Types</h2>
+Fortran defines several distinct types corresponding to the generic types described above. These include
+<pre>
+INTEGER
+REAL
+DOUBLE PRECISION  (this name is obsolet but is still widely used)
+COMPLEX
+CHARACTER
+LOGICAL
+</pre>
+Constants are literal representations of a type that are specified by the programmer. In Fortran,
+different constant formats are required for each type.
+<figure>
+<center>
+   <img  alt="declaration" 
+ src="../images/literalConstants.jpg">
+   <figcaption>Literal constants</figcaption></center>
+</figure> 
+
+<br>
+<br>
+The following program illustrates variable declarations.
+<figure>
+<center>
+   <img  alt="declaration" 
+ src="../images/Variables.jpg">
+   <figcaption>Variable declarations</figcaption></center>
+</figure> 
+
+<br><br>
+<h2 id="Characters">Characters</h2>
+Characters can either be declared as a single CHARACTER variable, a string of characters or
+an array of single characters or character strings.
+<pre>
+character                        :: c1 ! Single character
+character(len=80)                :: c2 ! String of characters
+character, dimension(10)         :: c3 ! Array of single
+                                       ! characters
+character(len=80), dimension(10) :: c4 ! Array of character
+                                       ! strings (10 elements)
+</pre>                           
+
+
+<br><br>
+<h2 id="UsingKind">Using kind</h2>
+The current preferred method of specifying the precision of a variable is to use the KIND representation. With
+KIND, the programmer specifies the number of decimal digits and the exponent range required, and the system
+matches the request to its underlying machine representation as closely as possible. Since nearly all current
+systems use the IEEE 754 convention, in practice only two kinds are widely used.
+Compilers still recognize the REAL and DOUBLE PRECISION keywords. The advantage to the kind
+convention is that it can be made very simple to switch between real and double precision.
+For most purposes, it is only necessary to use the SELECTED_REAL_KIND intrinsic and the programmer
+need never worry about what is going on within the machine. To declare single precision, use
+
+<pre>
+INTEGER, PARAMETER:: rk = SELECTED_REAL_KIND(6,37)
+</pre>
+To declare a double precision, use 
+<pre>
+INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(15,307)
+</pre>
+
+Quadruple precisions (not very often used):
+<pre>
+INTEGER, PARAMETER :: rk = selected_real_kind(33, 4931)
+</pre>
+
+Floating-point variables can now be declared with statements such as
+
+<pre>
+REAL (rk) :: r, s, t
+</pre>
+
+and the precision will be determined by which selected_real_kind statement precedes the declarations.
+
+<br><br>
+Here is a complete example showing how to use selected_real_kind:
+<pre>
+program select_kind
+  implicit none
+  integer, parameter   :: i4=SELECTED_INT_KIND(4)
+  integer, parameter   :: i8=SELECTED_INT_KIND(8)
+  integer, parameter   :: i15=SELECTED_INT_KIND(15)
+  integer, parameter   :: r4=SELECTED_REAL_KIND(6,37)
+  integer, parameter   :: r8=SELECTED_REAL_KIND(15,307)
+  integer(KIND=i4) :: ia
+  integer(KIND=i8) :: ib
+  integer(KIND=i15) :: ic
+  real(KIND=r4) :: ra
+  real(KIND=r8) :: rb
+
+  print *,' Integer kind=', i4, ' biggest value=', huge(ia)
+  print *,' Integer kind=', i8, ' biggest value=', huge(ib)
+  print *,' Integer kind=', i15, ' biggest value=', huge(ic)
+  print *,' Real kind=', r4, ' smallest value= ', tiny(ra) , &
+          ' biggest value=', huge(ra)
+  print *,' Real kind=', r8, ' smallest value= ', tiny(rb) , &
+          ' biggest value=', huge(rb)
+
+end program select_kind
+
+</pre>
+
+</section>
+<footer>
+</footer>
+
+</div>
+<script src="javascripts/scale.fix.js"></script>
+</body></html>

@@ -1,0 +1,2278 @@
+<!DOCTYPE html>  
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<title>Getting started with Fortran</title>
+    <link rel="stylesheet" href="../stylesheets/substyles.css">
+    <link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+  <body>
+<div class="wrapper"> <header> </header>
+<header>
+</header>
+<section>
+<h1>Intrinsic functions</h1>
+Fortran provides many built-in functions, called intrinsic functions. To use one of these functions,
+you need to know:
+<table id="TBL-12" class="longtable" 
+cellspacing="0" cellpadding="0" rules="groups" 
+><colgroup id="TBL-12-1g"><col 
+id="TBL-12-1"></colgroup><colgroup id="TBL-12-2g"><col 
+id="TBL-12-2"></colgroup><colgroup id="TBL-12-3g"><col 
+id="TBL-12-3"></colgroup><colgroup id="TBL-12-4g"><col 
+id="TBL-12-4"></colgroup>
+                                                                                                    
+<tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-1-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-1-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Function</span>                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-1-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Argument</span>                  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-1-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Result</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-1-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Explanation</span>               </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-2-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-2-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ABS(X)</span><a 
+ id="dx1-31275"></a>             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-2-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer,      real      or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">complex</span>                     </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-2-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Integer real complex</span>  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-2-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">The absolute value</span>    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-3-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-3-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ACHAR(I)</span><a 
+ id="dx1-31276"></a>           </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-3-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-3-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">character</span>                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-3-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Integer    to    ASCII</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">character</span>                    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-4-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-4-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ACOS(X)</span><a 
+ id="dx1-31277"></a>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-4-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-4-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-4-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Arc cosine</span>                 </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-5-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-5-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ADJUSTL(STR)</span><a 
+ id="dx1-31278"></a>       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-5-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">character</span>                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-5-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">character</span>                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-5-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Left        adjustment</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">(remove blanks)</span>        </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-6-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-6-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ADJUSTR(STR)</span><a 
+ id="dx1-31279"></a>       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-6-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">character</span>                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-6-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">character</span>                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-6-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Right adjustment</span>       </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-7-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-7-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">AIMAG(Z)</span><a 
+ id="dx1-31280"></a>           </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-7-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">complex</span>                     </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-7-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-7-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Imaginary part</span>          </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-8-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-8-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">AINT(X)</span><a 
+ id="dx1-31281"></a>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-8-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-8-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-8-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Truncate to a whole</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">number</span>                      </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-9-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-9-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ALL(MASK</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;DIM])</span><a 
+ id="dx1-31282"></a>  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-9-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">MASK  is  a  logical</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">and not scalar, DIM</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">is an integer</span>               </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-9-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">logical</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-9-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">True if all elements</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">== mask</span>                   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-10-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-10-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ALLOCATED(X)</span> <a 
+ id="dx1-31283"></a>       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-10-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">array of any type</span>       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-10-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">logical</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-10-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">True  if  allocated  in</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">memory</span>                    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-11-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-11-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ANINT(X)</span> <a 
+ id="dx1-31284"></a>           </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-11-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-11-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-11-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Round   to   nearest</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-12-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-12-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ANY(MASK</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;DIM])</span> <a 
+ id="dx1-31285"></a>  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-12-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">MASK  is  a  logical</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">and not scalar, DIM</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">is an integer</span>               </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-12-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">logical</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-12-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">True  if  all  elemnts</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">== mask</span>                   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-13-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-13-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ASIN(X)</span> <a 
+ id="dx1-31286"></a>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-13-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-13-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-13-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Arc sine</span>                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-14-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-14-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ASSOCIATED(PTR</span>
+ <span 
+class="fvmr8t-x-x-84">[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;TGT])</span> <a 
+ id="dx1-31287"></a>           </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-14-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">PTR   is   a   pointer,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">TGT is a pointer or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">target</span>                         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-14-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">logical</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-14-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">determines          the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">status of the pointer</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">PTR  or  if  PTR  is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">associated  with  the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">target TGT.</span>               </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-15-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-15-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ATAN(X)</span> <a 
+ id="dx1-31288"></a>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-15-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-15-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-15-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Arc tangent</span>               </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-16-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-16-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ATAN2(Y,X)</span> <a 
+ id="dx1-31289"></a>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-16-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">X+iY </span><span 
+class="T1-zgm-r-lf-swq-x-x-109">with  X  and  Y</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">reals</span>                           </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-16-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-16-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Arc tangent</span>               </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-17-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-17-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">BIT_SIZE(I)</span> <a 
+ id="dx1-31290"></a>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-17-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-17-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-17-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Number  of  bits  in</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">argument</span>                   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-18-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-18-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">BTEST(I,POS)</span> <a 
+ id="dx1-31291"></a>       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-18-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">I is an integer, POS</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">is an integer</span>               </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-18-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">logical</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-18-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Test   a   bit   of   an</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-19-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-19-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">CEILING(X)</span> <a 
+ id="dx1-31292"></a>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-19-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-19-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-19-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Least   integer   <=</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">argument</span>                   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-20-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-20-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">CHAR(I</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND])</span> <a 
+ id="dx1-31293"></a>   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-20-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-20-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">character</span>                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-20-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Integer   to   ASCCI</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">character</span>                    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-21-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-21-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">CMPLX(X,Y)</span> <a 
+ id="dx1-31294"></a>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-21-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">reals</span>                           </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-21-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">complex</span>                     </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-21-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Convert to complex</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">number</span>                      </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-22-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-22-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">CONJG(Z)</span> <a 
+ id="dx1-31295"></a>           </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-22-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">complex</span>                     </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-22-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">complex</span>                     </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-22-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Conjugate           the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">imaginary part</span>          </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-23-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-23-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">COS(X)</span> <a 
+ id="dx1-31296"></a>             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-23-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-23-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-23-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Cosine</span>                       </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-24-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-24-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">COSH(X)</span> <a 
+ id="dx1-31297"></a>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-24-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-24-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-24-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Hyperbolic cosine</span>     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-25-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-25-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">COUNT(mask</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,DIM])</span>
+ <a 
+ id="dx1-31298"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-25-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">mask  is  logical  and</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">non  scalar,  dim  is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-25-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-25-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Count      of      true</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">entries in mask</span>          </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-26-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-26-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">CPU_TIME(X)</span> <a 
+ id="dx1-31299"></a>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-26-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-26-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-26-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Returns  the  elapsed</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">CPU       time       in</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">seconds.</span>                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-27-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-27-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">CSHIFT(A,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;shift</span>
+ <span 
+class="fvmr8t-x-x-84">[,DIM])</span> <a 
+ id="dx1-31300"></a>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-27-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">A is an array of any</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">type,  shift  and  dim</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">are integers</span>                </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-27-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">array</span>                          </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-27-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Circular    shift    of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">elements</span>                    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-28-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-28-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">DATE_AND_TIME([DATE,</span>
+ <span 
+class="fvmr8t-x-x-84">TIME,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;ZONE,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;VALUES])</span>
+ <a 
+ id="dx1-31301"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-28-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">DATE                   is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">CHARACTER(LEN=8),</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">TIME                    is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">CHARACTER(LEN=10),</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">ZONE                  is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">CHARACTER(LEN=5)</span> </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-28-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">VALUES               is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">INTEGER(8)</span>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-28-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Realtime clock</span>           </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-29-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-29-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">DBLE(X)</span> <a 
+ id="dx1-31302"></a>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-29-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer,      real      or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">complex</span>                     </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-29-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">double precision</span>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-29-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Convert  to  double</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">precision</span>                    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-30-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-30-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">DIGITS(X)</span> <a 
+ id="dx1-31303"></a>          </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-30-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer or real</span>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-30-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-30-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Number  of  bits  in</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">argument</span>                   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-31-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-31-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">DIM(X,Y)</span> <a 
+ id="dx1-31304"></a>           </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-31-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integers or reals</span>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-31-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">same type as inputs</span>   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-31-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">returns</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">the di erence if the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">result                     is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">positive;   otherwise</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">returns zero.</span>              </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-32-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-32-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">DOT_PRODUCT(VECTOR_A,</span>
+ <span 
+class="fvmr8t-x-x-84">&#x00A0;VECTOR_B)</span> <a 
+ id="dx1-31305"></a>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-32-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">1D array</span>                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-32-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">If the arguments are</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">numeric, the return</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">value  is  a  scalar  of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">numeric           type,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">INTEGER,  REAL,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">or   COMPLEX.   If</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">the   arguments   are</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">LOGICAL,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">the  return  value  is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">.TRUE. or .FALSE.</span>   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-32-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Dot product</span>              </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-33-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-33-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">DPROD(X,Y)</span> <a 
+ id="dx1-31306"></a>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-33-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-33-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">double precision</span>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-33-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Double      precision</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">dot prod.</span>                   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-34-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-34-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">EOSHIFT(ARRAY,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;SHIFT</span>
+ <span 
+class="fvmr8t-x-x-84">[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;BOUNDARY,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;DIM])</span>
+ <a 
+ id="dx1-31307"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-34-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">ARRAY is an array</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">any type, not scalar.</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">SHIFT   is   integer,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">BOUNDARY       is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">like  ARRAY,  DIM</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">is INTEGER</span>             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-34-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">same      type      and</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">rank as the ARRAY</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">argument</span>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-34-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Array element shift</span>   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-35-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-35-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">EPSILON(X)</span> <a 
+ id="dx1-31308"></a>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-35-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-35-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-35-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Smallest       positive</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">number</span>                      </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-36-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-36-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">EXP(X)</span> <a 
+ id="dx1-31309"></a>             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-36-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real, complex</span>             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-36-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">same type and kind</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">as X</span>                           </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-36-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Exponential</span>               </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-37-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-37-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">EXPONENT(X)</span> <a 
+ id="dx1-31310"></a>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-37-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-37-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-37-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Model exponenet of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">argument</span>                   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-38-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-38-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">FLOOR(X)</span> <a 
+ id="dx1-31311"></a>           </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-38-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-38-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-38-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Integer              <=</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">argument</span>                   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-39-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-39-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">FRACTION(X)</span> <a 
+ id="dx1-31312"></a>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-39-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-39-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-39-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Fractional   pert   of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">argument</span>                   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-40-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-40-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">HUGE(X)</span> <a 
+ id="dx1-31313"></a>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-40-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real or integer</span>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-40-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">same type and kind</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">as X</span>                           </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-40-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Largest number</span>         </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-41-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-41-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">IACHAR(C</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND])</span>
+ <a 
+ id="dx1-31314"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-41-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">C     is     a     scalar</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">CHARACTER,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">KIND is integer</span>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-41-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">INTEGER         and</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of   kind   KIND.   If</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">KIND is absent, the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">return   value   is   of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">default integer kind.</span>  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-41-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Integer     value     of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">argument</span>                   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-42-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-42-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">IAND(I,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;J)</span> <a 
+ id="dx1-31315"></a>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-42-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-42-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-42-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Bitwise logical and</span>    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-43-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-43-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">IBCLR(I,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;POS)</span> <a 
+ id="dx1-31316"></a>      </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-43-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-43-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-43-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Setting a bit to 0 in</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">position pos</span>               </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-44-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-44-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">IBITS(I,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;POS,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;LEN)</span>
+ <a 
+ id="dx1-31317"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-44-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-44-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-44-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Extract     len     bits</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">from pos</span>                    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-45-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-45-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">IBSET(I,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;POS)</span> <a 
+ id="dx1-31318"></a>      </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-45-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-45-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-45-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Set pos bit to one</span>      </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-46-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-46-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ICHAR(C</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND])</span> <a 
+ id="dx1-31319"></a>  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-46-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">C     is     a     scalar</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">CHARACTER,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">KIND is integer</span>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-46-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer     of     type</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">KIND</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">or default integer if</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">KIND is missing</span>       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-46-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">ASCII   number   of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">argument</span>                   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-47-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-47-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">IEOR(I,J)</span> <a 
+ id="dx1-31320"></a>          </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-47-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-47-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-47-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Bitwise          logical</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">XOR</span>                          </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-48-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-48-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">INDEX(STRING,</span>
+ <span 
+class="fvmr8t-x-x-84">&#x00A0;SUBSTRING</span>
+ <span 
+class="fvmr8t-x-x-84">[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;BACK</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND]])</span>
+ <a 
+ id="dx1-31321"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-48-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">STRING            and</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">SUBSTRING</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">are scalar characters,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">BACK   is   a   scalar</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">logical and KIND is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-48-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer     of     type</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">KIND</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">or default integer if</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">KIND is missing</span>       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-48-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Position                of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">substring</span>                    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-49-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-49-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">INT(X</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND))</span> <a 
+ id="dx1-31322"></a>    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-49-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">X is integer, real or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">complex and kind is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-49-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-49-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Convert  to  integer</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">type</span>                           </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-50-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-50-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">IOR(I,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;J)</span> <a 
+ id="dx1-31323"></a>          </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-50-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-50-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-50-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">bitwise        Boolean</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">inclusive-OR   of   I</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">and J</span>                          </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-51-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-51-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ISHFT(I,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;SHIFT)</span> <a 
+ id="dx1-31324"></a>    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-51-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-51-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-51-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Shift bits by shift</span>       </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-52-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-52-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">ISHFTC(I,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;SHIFT)</span> <a 
+ id="dx1-31325"></a>   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-52-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-52-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-52-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Shift circular bits in</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">argument</span>                   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-53-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-53-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">KIND(X)</span> <a 
+ id="dx1-31326"></a>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-53-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">LOGICAL,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">INTEGER,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">REAL, COMPLEX</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">or CHARACTER</span>     </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-53-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-53-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">the kind value of the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">entity X</span>                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-54-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-54-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">LBOUND      (ARRAY</span>
+ <span 
+class="fvmr8t-x-x-84">[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;DIM</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND]])</span> <a 
+ id="dx1-31327"></a>  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-54-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">ARRAY is an array</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of                       any</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">type, DIM and KIN</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">are integers</span>                </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-54-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer                  of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">kind KIND (default</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integer  if  KIND  is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">missing)</span>                     </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-54-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Lower     dimension</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">bounds of an array</span>    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-55-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-55-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">LEN(STRING</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND])</span>
+ <a 
+ id="dx1-31328"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-55-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">STRING  is  a  scalar</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">or   array   of   type</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">CHARACTER,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">KIND is integer</span>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-55-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-55-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Length        of        a</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">character entity</span>         </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-56-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-56-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">LEN_TRIM</span>
+ <span 
+class="fvmr8t-x-x-84">(STRING</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND])</span> <a 
+ id="dx1-31329"></a>  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-56-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">STRING  is  a  scalar</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">or   array   of   type</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">CHARACTER,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">KIND is integer</span>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-56-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-56-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Length</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of a character entity</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">without        trailing</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">blank characters</span>        </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-57-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-57-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">LGE</span>
+ <span 
+class="fvmr8t-x-x-84">(STRING_A,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;STRING_B)</span>
+ <a 
+ id="dx1-31330"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-57-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">characters</span>                  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-57-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">logical</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-57-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Lexical greater than</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">or equal</span>                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-58-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-58-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">LGT</span>
+ <span 
+class="fvmr8t-x-x-84">(STRING_A,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;STRING_B)</span>
+ <a 
+ id="dx1-31331"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-58-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">characters</span>                  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-58-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">logical</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-58-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Lexical greater than</span>   </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-59-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-59-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">LLE</span>
+ <span 
+class="fvmr8t-x-x-84">(STRING_A,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;STRING_B)</span>
+ <a 
+ id="dx1-31332"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-59-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">characters</span>                  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-59-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">logical</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-59-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Lexical  less  than  or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">equal</span>                          </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-60-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-60-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">LLT</span>
+ <span 
+class="fvmr8t-x-x-84">(STRING_A,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;STRING_B)</span>
+ <a 
+ id="dx1-31333"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-60-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">characters</span>                  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-60-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">logical</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-60-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Lexical less than</span>        </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-61-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-61-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">LOG(X)</span> <a 
+ id="dx1-31334"></a>             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-61-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">REAL                  or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">COMPLEX</span>               </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-61-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">REAL                  or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">COMPLEX</span>               </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-61-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Natural    logarithm</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">function</span>                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-62-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-62-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">LOG10(X)</span> <a 
+ id="dx1-31335"></a>           </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-62-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">REAL                  or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">COMPLEX</span>               </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-62-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">REAL                  or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">COMPLEX</span>               </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-62-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Base   10   logarithm</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">function</span>                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-63-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-63-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">LOGICAL</span>
+ <span 
+class="fvmr8t-x-x-84">(L</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND])</span> <a 
+ id="dx1-31336"></a>       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-63-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">L is logical, KIND is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-63-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">logical</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-63-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Converts            one</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">kind  of  LOGICAL</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">variable to another</span>    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-64-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-64-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">MATMUL  (MATRIX_A,</span>
+ <span 
+class="fvmr8t-x-x-84">&#x00A0;MATRIX_B)</span> <a 
+ id="dx1-31337"></a>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-64-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">arrays                   of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">INTEGER,  REAL,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">COMPLEX,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">or LOGICAL type,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">with  a  rank  of  one</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">or two</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-64-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">array</span>                          </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-64-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Performs   a   matrix</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">multiplication     on</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">numeric  or  logical</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">arguments.</span>                 </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-65-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-65-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">MAX        (A1,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;A2</span>
+ <span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;A3</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;...]])</span> <a 
+ id="dx1-31338"></a>   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-65-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integers or reals</span>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-65-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">same   type   as   the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109"> rst argument</span>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-65-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Returns              the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">argument  with  the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">largest             (most</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">positive) value.</span>          </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-66-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-66-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">MAXEXPONENT(X)</span> <a 
+ id="dx1-31339"></a>     </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-66-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">REAL</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-66-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-66-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Maximum</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">exponent  of  a  real</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">kind</span>                           </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-67-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-67-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">MAXLOC      (ARRAY</span>
+ <span 
+class="fvmr8t-x-x-84">[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;DIM</span><span 
+class="fvmr8t-x-x-84">&#x00A0;,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;MASK])</span> <a 
+ id="dx1-31340"></a>    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-67-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">ARRAY is an array</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of  type  INTEGER</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">or  REAL,  DIM  is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">and MASK an array</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of type LOGICAL,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">and      conformable</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">with ARRAY</span>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-67-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer    (array    or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">scalar depending on</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">the call)</span>                     </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-67-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Location               of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">the maximum value</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">within an array</span>          </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-68-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-68-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">MAXVAL      (ARRAY</span>
+ <span 
+class="fvmr8t-x-x-84">[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;DIM</span><span 
+class="fvmr8t-x-x-84">&#x00A0;,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;MASK])</span><a 
+ id="dx1-31341"></a>    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-68-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">ARRAY is an array</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of  type  INTEGER</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">or  REAL,  DIM  is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">and MASK an array</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of type LOGICAL,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">and      conformable</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">with ARRAY</span>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-68-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer    (array    or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">scalar)</span>                        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-68-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Maximum  value  of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">an array</span>                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-69-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-69-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">MERGE    (TSOURCE,</span>
+ <span 
+class="fvmr8t-x-x-84">&#x00A0;FSOURCE,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;MASK)</span> <a 
+ id="dx1-31342"></a>    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-69-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">TSOURCE    is    of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">any</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">type,  FSOURCE  is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">like       TSOURCE,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">MASK   is   of   type</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">LOGICAL</span>                </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-69-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">The  result  is  of  the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">same                 type</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">and type parameters</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">as TSOURCE</span>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-69-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Select   values   from</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">two</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">arrays  according  to</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">a logical mask. The</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">result                     is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">equal to TSOURCE</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">if MASK is .TRUE.,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">equal to FSOURCE</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">if it is .FALSE..</span>          </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-70-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-70-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">REAL(A</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND])</span> <a 
+ id="dx1-31343"></a>   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-70-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">A    is    INTEGER,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">REAL,                 or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">COMPLEX. KIND</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">is integer</span>                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-70-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-70-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Convert to real type</span>  </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-71-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-71-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">REPEAT</span>
+ <span 
+class="fvmr8t-x-x-84">(STRING,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;NCOPIES)</span> <a 
+ id="dx1-31344"></a>  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-71-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">STRING  is  a  scalar</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of                      type</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">CHARACTER.</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">NCOPIES is integer</span>  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-71-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">characters</span>                  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-71-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Repeated        string</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">concatenation</span>            </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-72-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-72-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">RESHAPE</span>
+ <span 
+class="fvmr8t-x-x-84">(SOURCE,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;SHAPE</span>
+ <span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;PAD,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;ORDER])</span> <a 
+ id="dx1-31345"></a>   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-72-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">SOURCE     is     an</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">array  of  any  type,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">SHAPE  is  of  type</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">INTEGER  and  an</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">array</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of rank one.PAD is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">an array of the same</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">type   as   SOURCE.</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">ORDER  is  of  type</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">INTEGER  and  an</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">array   of   the   same</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">shape as SHAPE.</span>       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-72-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">array                     of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">shape  SHAPE  with</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">the   same   type   as</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">SOURCE.</span>                 </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-72-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Function to reshape</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">an array</span>                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-73-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-73-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">RRSPACING(X)</span> <a 
+ id="dx1-31346"></a>       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-73-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-73-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-73-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Reciprocal   of   the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">relative spacing</span>          </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-74-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-74-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SCALE(X,I)</span> <a 
+ id="dx1-31347"></a>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-74-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">X is real, I is integer</span>  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-74-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-74-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Scale a real value i.e.</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">returns</span>
+  <span 
+class="fvmr8t-x-x-84">X</span><span 
+class="fvmr8t-x-x-84">&#x00A0;*</span><span 
+class="fvmr8t-x-x-84">&#x00A0;RADIX(X)**I</span>    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-75-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-75-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SCAN  (STRING,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;SET</span>
+ <span 
+class="fvmr8t-x-x-84">[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;BACK</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND]])</span>
+ <a 
+ id="dx1-31348"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-75-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">STRING is a string</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of   characters,   SET</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">is  character,  BACK</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">is  logical,  KIND  is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-75-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-75-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Scan a string for the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">presence  of  a  set  of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">characters</span>                  </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-76-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-76-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SELECTED_INT_KIND(R)</span>
+ <a 
+ id="dx1-31349"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-76-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-76-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-76-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">the                    kind</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">value of the smallest</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integer type that can</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">represent  all  values</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">ranging  from  </span><span 
+class="fvmr8t-x-x-84">-10^R</span>
+ <span 
+class="T1-zgm-r-lf-swq-x-x-109">(exclusive)  to  </span><span 
+class="fvmr8t-x-x-84">10^R</span>
+ <span 
+class="T1-zgm-r-lf-swq-x-x-109">(exclusive).</span>                </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-77-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-77-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SELECTED_REAL_KIND</span>
+ <span 
+class="fvmr8t-x-x-84">(P,R,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;RADIX)</span> <a 
+ id="dx1-31350"></a>       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-77-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integers</span>                      </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-77-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-77-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">the  kind  value  of  a</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">real  data  type  with</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">decimal precision of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">at   least   P   digits,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">exponent range of at</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">least  R,  and  with  a</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">radix of RADIX.</span>       </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-78-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-78-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SET_EXPONENT</span>
+ <span 
+class="fvmr8t-x-x-84">(X,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;I)</span> <a 
+ id="dx1-31351"></a>             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-78-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">X is real, I is integer</span>  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-78-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-78-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">returns                the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">real  number  whose</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">fractional</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">part   is   that   that</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of   X   and   whose</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">exponent part is I.</span>     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-79-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-79-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SHAPE</span>
+ <span 
+class="fvmr8t-x-x-84">(SOURCE</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND])</span> <a 
+ id="dx1-31352"></a>  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-79-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">SOURCE</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">is an array or scalar</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of any type.i KIND</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">is integer</span>                    </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-79-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer    (scalar    or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">array)</span>                         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-79-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Determines         the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">shape of an array.</span>      </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-80-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-80-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SIGN(A,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;B)</span> <a 
+ id="dx1-31353"></a>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-80-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer or real</span>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-80-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer or real</span>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-80-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">the value of A with</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">the sign of B.</span>             </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-81-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-81-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SIN(X)</span> <a 
+ id="dx1-31354"></a>             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-81-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real or complex</span>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-81-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real or complex</span>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-81-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Sine function</span>             </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-82-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-82-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SINH</span> <a 
+ id="dx1-31355"></a>               </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-82-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real or complex</span>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-82-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real or complex</span>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-82-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Hyperbolic       sine</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">function</span>                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-83-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-83-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SIZE  (ARRAY[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;DIM</span>
+ <span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND]])</span> <a 
+ id="dx1-31356"></a>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-83-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">ARRAY is an array</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of        any        type,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">DIM and KIND are</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integers</span>                      </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-83-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">integer</span>                       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-83-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Determine  the  size</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of an array</span>                 </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-84-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-84-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SPREAD    (SOURCE,</span>
+ <span 
+class="fvmr8t-x-x-84">DIM,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;NCOPIES)</span> <a 
+ id="dx1-31357"></a>      </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-84-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">SOURCE is a scalar</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">or  an  array  of  any</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">type.                DIM</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">and  NCOPIES  are</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integers</span>                      </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-84-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">an array of the same</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">type   as   SOURCE</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">and  has  rank  n+1</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">where  n  equals  the</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">rank of SOURCE.</span>     </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-84-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Add a dimension to</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">an array</span>                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-85-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-85-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SQRT(X)</span> <a 
+ id="dx1-31358"></a>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-85-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real or complex</span>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-85-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real or complex</span>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-85-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Square-root</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">function</span>                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-86-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-86-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SUM</span>
+ <span 
+class="fvmr8t-x-x-84">(ARRAY,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;DIM[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;MASK])</span>
+ <a 
+ id="dx1-31359"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-86-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">ARRAY      is      an</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">array of INTEGER,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">REAL                  or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">COMPLEX,    DIM</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">is   integer,   MASK</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">is   LOGICAL   and</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">either be a scalar or</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">an array of the same</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">shape as ARRAY.</span>      </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-86-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">The</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">result is of the same</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">type as ARRAY.</span>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-86-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Sum       of       array</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">elements</span>                    </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-87-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-87-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">SYSTEM_CLOCK</span>
+ <span 
+class="fvmr8t-x-x-84">([COUNT,</span>
+ <span 
+class="fvmr8t-x-x-84">COUNT_RATE,</span>
+ <span 
+class="fvmr8t-x-x-84">COUNT_MAX])</span> <a 
+ id="dx1-31360"></a>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-87-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">COUNT           and</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">COUNT_MAX are</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integers.</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">COUNT_RATE  is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">integer or REAL</span>       </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-87-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">NONE   as   it   is   a</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">subroutine  and  not</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">a function...</span>               </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-87-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Time function</span>           </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-88-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-88-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">TAN(X)</span> <a 
+ id="dx1-31361"></a>             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-88-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real or complex</span>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-88-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real or complex</span>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-88-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Tangent function</span>       </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-89-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-89-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">TANH(X)</span> <a 
+ id="dx1-31362"></a>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-89-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real or complex</span>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-89-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real or complex</span>         </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-89-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Hyperbolic  tangent</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">function</span>                     </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-90-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-90-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">TINY(X)</span> <a 
+ id="dx1-31363"></a>            </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-90-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-90-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">real</span>                             </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-90-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Smallest</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">positive  number  of</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">a real kind</span>                  </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-91-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-91-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">UNPACK</span>
+ <span 
+class="fvmr8t-x-x-84">(VECTOR,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;MASK,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;FIELD)</span>
+ <a 
+ id="dx1-31364"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-91-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">VECTOR</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">is  an  array  of  any</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">type  and  rank  one.</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">MASK  is  an  array</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of type LOGICAL.</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">FIELD                  is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of the same type as</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">VECTOR and have</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">the  same  shape  as</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">MASK.</span>                      </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-91-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">same       type       as</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">VECTOR</span>                  </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-91-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">The  resulting  array</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">corresponds          to</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">FIELD with TRUE</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">elements  of  MASK</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">replaced   by   values</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">from  VECTOR  in</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">array element order.</span>  </td>
+</tr><tr 
+class="hline"><td><hr></td><td><hr></td><td><hr></td><td><hr></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-12-92-"><td  style="white-space:wrap; text-align:left;" id="TBL-12-92-1"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="fvmr8t-x-x-84">VERIFY</span>
+ <span 
+class="fvmr8t-x-x-84">(STRING,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;SET</span>
+ <span 
+class="fvmr8t-x-x-84">[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;BACK</span><span 
+class="fvmr8t-x-x-84">&#x00A0;[,</span><span 
+class="fvmr8t-x-x-84">&#x00A0;KIND]])</span>
+ <a 
+ id="dx1-31365"></a>                   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-92-2"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">STRING</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">and SET are of type</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">CHARACTER,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">BACK    is    logical,</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">KIND is integer</span>        </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-92-3"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">The  return  value  is</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">of  type  INTEGER</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">and of kind KIND.</span>   </td><td  style="white-space:wrap; text-align:left;" id="TBL-12-92-4"  
+class="td11">
+ <!--l. 515--><p class="noindent" ><span 
+class="T1-zgm-r-lf-swq-x-x-109">Scan                       a</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">string for characters</span>
+  <span 
+class="T1-zgm-r-lf-swq-x-x-109">not a given set</span>           </td>
+</tr>
+</table>
+
+
+</section>
+<footer>
+</footer>
+
+</div>
+<script src="javascripts/scale.fix.js"></script>
+</body></html>

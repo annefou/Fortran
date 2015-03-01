@@ -4,18 +4,178 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
 	<title>Getting started with Fortran</title>
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <link rel="stylesheet" href="../stylesheets/substyles.css">
+    <link rel="stylesheet" href="../stylesheets/pygment_trac.css">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
 </head>
 
   <body>
 <div class="wrapper"> <header> </header>
-<header></header>
+<header>
+<ul>
+<li><a href=#gettingStarted>Getting started with Fortran</a></li>
+<li><a href=#intro>what is Fortran?</a></li>
+<li><a href=#whyFortran>So why Learning Fortran?</a></li>
+<li><a href=#compilingLinking>Compiling, linking...</a></li>
+<li><a href=#usefulOptions>Useful compiler options</a></li>
+<li><a href=#codingPractices>Coding practices</a></li>
+<li><a href=#usegit>Version control system</a></li>
+</ul>
+</header>
 <section>
-<h1>Getting started with Fortran</h1>
-Here is an example MathJax inline rendering \( 1/x^{2} \), and here is a block rendering: \[ \frac{1}{n^{2}} \]
+<h1 id="gettingStarted">Getting started with Fortran</h1>
+You will learn:
+<ul>
+<li><a href="programs.html">Program units</a></li>
+<li><a href="variables.html">Variables and assignment</a></li>
+<li><a href="control.html">Control structures</a></li>
+<li><a href="intrinsics.html">Intrinsic functions</a></li>
+</ul>
+Before learning how to write a Fortran program, let's start with some information about Fortran and where to find tutorials and documentation.
+
+<br> <br> To get started, you can follow on of these links:
+<ul>
+
+<li>Gunnar Wollan (previously teached GEO4060) has compiled a set of documents. I have used his material to build this course. You can find these documents at 
+<a href ="http://folk.uio.no/gunnarw/GEO4060/">
+ http://folk.uio.no/gunnarw/GEO4060/</a></li>
+    <li>An interesting free tutorial at <a href="http://www.fortrantutorial.com/"> http://www.fortrantutorial.com/ </a> </li>
+    <li>The National Computational Infrastructure in Australia has class notes online for a 
+	<a href="http://nf.nci.org.au/training/FortranBasic/">Basic Fortran course</a> and an 
+	<a href="http://nf.nci.org.au/training/FortranAdvanced/">Advanced Fortran course </a> </li>
+
+	
+<li><a href="http://fortranwiki.org">Fortran wiki </a>: a resource hub for all aspects of Fortran programming </li>
+
+<li><a href="http://gcc.gnu.org/onlinedocs/gcc-4.9.0/gfortran">GNU Fortran online documents</a></li>
+
+ 
+<li>Code examples from <a href="http://www.nag.co.uk/nagware/examples.asp">nag </a> 
+or <a href="http://www.personal.psu.edu/jhm/f90/progref.html">others</a></li>
+
+ 
+<li><a href="http://www.cs.rpi.edu/~szymansk/OOF90/bugs.html">Mistakes in Fortran 90 Programs That Might Surprise You</a></li>
+
+</ul>
+<br>
+<h2 id="intro">Fortran: an old and new programming language..</h2>
+Seen in a historical perspective Fortran is an old programming language:
+<ul>
+<li> 1954: John W. Backus and his team at IBM begin developing the scientific programming language Fortran. </li>
+<li> 1959: a new version, Fortran II was introduced. </li>
+<li>1962: a new version called Fortran IV emerged. This version had among it’s features the
+ability to read and write direct access files and also had a new data-type called LOGICAL.</li>
+<li> 1978: Fortran 77 was introduced. This version contained better loop and test structures. </li>
+<li> 1992: Fortran 90 was formally introduced as an ANSI/ISO standard. This is a major revision of Fortran and it has made the
+language into a modern programming language. </li>
+<li> 1995: Fortran 95 is a minor revision of Fortran 90</li>
+<li> 2004: Fortran 2003, officially published as ISO/IEC 1539-1:2004, is a major revision introducing many new features.</li>
+<li> 2010: The most recent standard, ISO/IEC 1539-1:2010, informally known as Fortran 2008, was approved in September 2010. 
+It is a minor upgrade of Fortran 2003.</li>
+</ul>
+
+But a new programming language too: it evolves with user needs and technologies. 
+For instance Fortran 2003 incorporates object-oriented programming support
+with type extension and inheritance, polymorphism, dynamic type allocation and 
+type-bound procedures and the latest standard Fortran 2008 includes a parallel execution model (coarrays).
+<br>
+<br>
+
+<h2 id="whyFortran">So why Learning Fortran?</h2>
+But the (best) reasons why it's still useful to learn Fortran are:
+
+<ul>
+<li> Fortran is well suited for numerical computations (Likely over 50\% of scientific applications are written in Fortran)</li>
+<li> It generates fast code (compilers can optimize well)</li>
+<li>Array data types and manipulation are very easy </li>
+<li> It is relatively easy to write clear and portable Fortran code</li>
+<li> There are many optimized numerical libraries available (such as BLAS, LAPACK, LINPACK, EISPACK, MINPACK, ARPACK, IMSL, NAG, etc.)</li>
+</ul>
+<br>
+<br>
+<h2 id="compilingLinking"> Compiling, Linking...</h2>
+<br>
+<code>
+gfortran myprog.f90 -o myprog.exe
+</code>
+There are compiler options which makes your code to fail if it does not comply
+to the chosen Fortran standard. With Gfortran, use -std i.e.:
+<br>
+<code>
+
+gfortran myprog.f90 -o myprog -std=f95
+<br>
+gfortran myprog.f90 -o myprog -std=f2003
+<br>
+gfortran myprog.f90 -o myprog -std=f2008
+<br>
+</code>
+<br><br>
+And with Intel Fortran compilers (ifort):<br>
+<code>
+ifort myprog.f90 -o myprog -std95
+<br>
+ifort myprog.f90 -o myprog -std03
+<br>
+ifort myprog.f90 -o myprog -std08
+<br>
+</code>
+<br>
+<br>
+<h2 id="usefulOptions">Useful compiler options for debugging</h2>
+<figure>
+<center>
+   <img alt="compilerOptions" 
+ src="../images/compilerOptions.jpg">
+ <figcaption>Compiler options</figcaption></center>
+</figure> 
+<figure>
+<center>
+ <img alt="compilerOptions2" 
+ src="../images/compilerOptions2.jpg">
+   <figcaption>Runtime options</figcaption></center>
+</figure> 
+<br><br>
+<h2 id="codingPractices">Coding practices</h2>
+<br>
+<br>
+<ul>
+<li>Compile your code with debug options (bound checkings, etc.)</li>
+<li>Add meaningful comments</li>
+<li>Do you use a standard indentation style? Can you easily identify loops (beginning and ending), branching statements (IF-THEN-ELSE), etc.?</li>
+<li> Do you use procedures (SUBROUTINE, FUNCTION) or Fortran modules (MODULE, INTERFACE)? If yes, does 
+it make the code easier to understand? Easier to add new developments?</li>
+<li>Do you ask users for inputs and if yes how? Do you use NAMELIST, input files, program arguments, or read environment variables?</li>
+<li>How do you store the results? Do you simply print them on the screen, write an ascii file or binary file? Do you use standard output 
+format (such as PGM, HDF, netCDF, GRIB,etc.)?</li>
+<li>Learn from examples: read codes that have been written by others and comment on their coding style!</li>
+</ul>
+
+Starting from an existing example is usually the best way to learn Fortran. Take it, compile it, test it and then start to modify it. 
+Try to add a new "feature" (add a new test, change the way the output results are written, or how the input parameters are provided, etc.), a new algorithm, etc.
+
+<br><br>
+<h2 id="usegit">Use a version control system</h2>
+Keep your code and documents safe: this is true that having backup is one of the most important
+best practices, but it should be maintained in well managed way. If you have multiple copies of the
+same source code or document, then it will create confusion and it would be di cult to identify
+latest code or document. It is strongly recommended to use proper source code version control
+system (such as git, mercurial, etc.).
+  You can  find several good tutorials on the web. Here is a short list on git tutorials but feel free to
+use any other resources:
+      <ul>
+      <li>Got   15   minutes   and   want   to   learn   Git?   Follow   this   simple   git   tutorial   at
+      <a href="https://try.github.io/levels/1/challenges/1" class="url" >https://try.github.io/levels/1/challenges/1</a>
+      </li>
+      <li>Learn git with Software carpentry at <a href="http://www.software-carpentry.org/v5/novice/git/" class="url" >
+	  http://www.software-carpentry.org/v5/novice/git/</a>
+      </li>
+      <li>Learn git with Atlassian (<a href="https://www.atlassian.com/git/tutorials/" class="url" >
+	  https://www.atlassian.com/git/tutorials/</a>)</li>
+	  </ul>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 </section>
 <footer>
 </footer>

@@ -1,0 +1,353 @@
+<!DOCTYPE html>  
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<title>Getting started with Fortran</title>
+    <link rel="stylesheet" href="../stylesheets/substyles.css">
+    <link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+  <body>
+<div class="wrapper"> <header> </header>
+<header>
+<ul>
+<li><a href=#relationalOperators>Relational operators</a></li>
+<li><a href=#logicalOperators>Logical operators </a></li>
+<li><a href=#ifThenElse>IF and IF-THEN-ELSE Statements</a></li>
+<li><a href=#selectCase>SELECT CASE</a></li>
+<li><a href=#doLoops>DO loops </a></li>
+</ul>
+</header>
+<section>
+
+<h2 id="relationalOperators">Relational Operators</h2>
+
+Relational operators are binary and the result is logical (true or false).
+<pre>
+Fortran 77 syntax & Fortran 90 syntax & Meaning
+ 	.lt. 	   < 	  less than 
+ 	.le. 	   <= 	   less than or equal to
+ 	.eq. 	   == 	   equal to 
+ 	.ge. 	   >= 	   greater than or equal to
+ 	.gt. 	   > 	   greater than 
+ 	.ne. 	   /= 	   not equal to 
+</pre>
+
+Here is a Fortran example illustrating the relational operators:
+<pre>
+program relational_operators
+implicit none
+
+ integer           :: i1,i2
+ real              :: r1,r2
+ double precision  :: d1,d2
+ complex           :: cplx1,cplx2
+ character(len=50) :: ch1
+ character(len=12) :: ch2
+
+ NAMELIST /inputs/ i1,i2,r1,r2,d1,d2,cplx1,cplx2, ch1, ch2
+
+! Read input values from a namelist called relational_operators.nml
+
+ open(unit=1, file='relational_operators.nml',status='old')
+ READ(unit=1,NML=inputs)
+ close(unit=1)
+
+! write namelist to standard output
+ write(*,NML=inputs)
+
+! relational operators:
+
+! For integers
+ write(*,*) 'i1 < i2 ', i1 .lt. i2, i1 < i2
+ write(*,*) 'i1 <= i2 ', i1 .le. i2, i1 <= i2
+ write(*,*) 'i1 > i2 ', i1 .gt. i2, i1 > i2
+ write(*,*) 'i1 >= i2 ', i1 .ge. i2, i1>=i2
+ write(*,*) 'i1 == i2 ', i1 .eq. i2, i1==i2
+ write(*,*) 'i1 /= i2 ', i1 .ne. i2, i1/=i2
+ write(*,*)
+! For real and integers
+! when mixing reals and integer, integers are first converted to reals
+ write(*,*) 'r1 < i2 ', r1 .lt. i2, r1 < i2
+ write(*,*) 'i1 <= r2 ', i1 .le. r2, i1 <= r2
+ write(*,*) 'r1 > i2 ', r1 .gt. i2, r1 > i2
+ write(*,*) 'i1 >= r2 ', i1 .ge. r2, i1>=r2
+ write(*,*) 'r1 == i2 ', r1 .eq. i2, r1==i2
+ write(*,*) 'r1 /= r2 ', r1 .ne. r2, r1/=r2
+ write(*,*)
+! COMPLEX values can only use == and /=
+ write(*,*) 'cplx1 == cplx2 ', cplx1 .eq. cplx2, cplx1==cplx2
+ write(*,*) 'cplx1 /= cplx2 ', cplx1 .ne. cplx2, cplx1/=cplx2
+ write(*,*)
+! CHARACTERS can only be compared with CHARACTERS
+ write(*,*) 'ch1 < ch2 ', ch1 .lt. ch2, ch1 < ch2
+ write(*,*) 'ch1 <= ch2 ', ch1 .le. ch2, ch1 <= ch2
+ write(*,*) 'ch1 > ch2 ', ch1 .gt. ch2, ch1 > ch2
+ write(*,*) 'ch1 >= ch2 ', ch1 .ge. ch2, ch1>=ch2
+ write(*,*) 'ch1 == ch2 ', ch1 .eq. ch2, ch1==ch2
+ write(*,*) 'ch1 /= ch2 ', ch1 .ne. ch2, ch1/=ch2
+end program relational_operators
+</pre>
+with the corresponding namelist input:
+<pre>
+&INPUTS
+i1=10,
+i1=100,
+r1=5.789,
+r1=46.3983,
+d1=4.56794325453674d0,
+d1=1.9435456454765d1,
+cplx1=(5.35,6.7),
+cplx2=(1.98,4.2),
+ch1='Hello world',
+ch2='HELLO WORLD',
+/
+</pre>
+<h2 id="logicalOperators">Logical Operators</h2>
+
+<pre>
+.NOT. 	Logical Negation 
+.AND. 	Logical Conjunction 
+.OR. 	Logical Inclusive Disjunction 
+.EQV. 	Logical Equivalence
+.NEQV.	Logical Nonequivalence 
+</pre>
+
+<pre>
+program logical_operators
+  implicit none
+
+  INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(6,37)
+  real(kind=rk)      :: temperature
+  logical            :: good_data
+  logical            :: user_quality_flag
+
+
+! Read temperature from user
+  write(*,*) 'Enter temperature in degrees celsius'
+  read(*,*) temperature
+! We asked user for quality control 
+  write(*,*) 'A temperature of ', temperature, &
+             ' degrees Celsius is realistic in January in Oslo (Enter T or F) '
+  read(*,*) user_quality_flag
+
+! Quality control: combination of data checks and user quality flag
+! Here we trust users...
+  WRITE(*,*) 'Good data? (T if good, F is bad) ', &
+                           ((temperature > -50) .AND. &   
+                            (temperature < 20) .AND.  &
+                             user_quality_flag) 
+end program logical_operators
+</pre>
+
+<h2 id="ifThenElse">IF and IF-THEN-ELSE Statements</h2>
+
+<pre>
+IF (logical-expression-1) THEN
+statement sequence 1
+ELSE IF (logical expression 2) THEN
+(logical-expression-2)
+statement seqence 2
+ELSE IF (logical-expression-3) THEN
+statement sequence 3
+ELSE IF (.....) THEN
+...........
+ELSE
+statement sequence ELSE
+END IF
+</pre>
+
+Logical expressions are evaluated sequentially (i.e., top-
+down). The statement sequence that corresponds to the
+expression evaluated to .TRUE. will be executed.
+Otherwise, the ELSE sequence is executed.
+
+<pre>
+program if_and_logical_operators
+  implicit none
+
+  INTEGER, PARAMETER :: rk = SELECTED_REAL_KIND(6,37)
+  real(kind=rk)      :: salinity
+
+
+! Read salinity value in ppt from user
+  write(*,*) 'Enter salinity in ppt'
+  read(*,*) salinity
+
+! Classification according to the salinity value
+  IF (SALINITY .LT. 0.) THEN
+    WRITE(*,*) 'INVALID SALINITY VALUE'
+  ELSE IF (SALINITY .LT. 0.5) THEN
+    WRITE(*,*) 'FRESHWATER'
+  ELSE IF (SALINITY .LT. 30) THEN
+    WRITE(*,*) 'BRACKFISH WATER'
+  ELSE IF (SALINITY .LT. 50) THEN
+    WRITE(*,*) 'SALINE WATER'
+  ELSE 
+    WRITE(*,*) 'BRINE WATER'
+  ENDIF
+
+end program if_and_logical_operators
+</pre>
+
+IF-THEN-ELSE can be nested.
+
+<h2 id="selectCase">The SELECT CASE Statement</h2>
+
+<pre>
+SELECT CASE (selector)
+  CASE (label-list-1)
+    statements-1
+  CASE (label-list-2)
+    statements-2
+  CASE (label-list-3)
+    statements-3
+...
+  CASE (label-list-n)
+    statements-n
+  CASE DEFAULT
+    statements-DEFAULT
+END SELECT
+</pre>
+
+<ul>
+<li> selector is an expression evaluated
+to an INTEGER, LOGICAL or
+CHARACTER value. </li>
+YOU CANNOT USE REAL (try to find out why...)!
+<li>label-list is a set of constants or
+PARAMETERS of the same type as the selector</li>
+<li> statements is one or more
+executable statements</li>
+<ul>
+
+<pre>
+program selectCase
+  implicit none
+
+  integer :: month, ndays, year
+  logical :: leap_year
+
+ print*, 'Enter a year'
+ read*, year
+ print*, 'Enter a month Enter a month (1-12)'
+ read*, month
+
+ if( ((year/4*4     .eq. year) .and. &
+      (year/100*100 .ne. year)) .or. &
+      (year/400*400 .eq. year) ) then
+   leap_year = .true.
+ else
+   leap_year = .false.
+ end if
+
+ select case(month)
+   case(4,6,9,11)
+     ndays = 30
+   case(1,3,5,7:8,10,12)
+     ndays = 31
+   case(2)
+!----------------------------------
+     fevrier: select case(leap_year)
+       case(.true.)
+         ndays = 29
+       case(.false.)
+         ndays = 28
+     end select fevrier
+!-----------------------------------
+   case DEFAULT
+     print*, 'Invalid month'
+ end select
+
+ print*, "There are ", ndays, " days in this month."
+
+end program selectCase
+</pre>
+
+<h2 id="doLoops">DO loops</h2>
+
+<h3>The counting DO loop</h3>
+
+<pre>
+DO control-var = initial, final [, step]
+  statements
+END DO
+</pre>
+
+<ul>
+<li>control-var is an INTEGER variable</li>
+<li>initial, final and step are INTEGER expressions; </li>
+
+<li> Note, the value of step cannot be zero.</li>
+<li>If step is omitted, its default value is 1.</li>
+<li>If step is positive, this DO counts up; if step is
+negative, this DO counts down</li>
+</ul>
+
+
+
+Here is a simple example to print odd values only:
+<pre>
+program odd_number
+  implicit none
+  integer :: N, k
+ 
+! odd integers between 0 & N
+  READ(*,*) N
+  WRITE(*,*) "Odd number between 0 and ", N
+  DO k = 0, N, 2
+  WRITE(*,*) k
+END DO
+
+end program odd_number
+</pre>
+
+
+<h3>General DO-Loop with EXIT</h3>
+<pre>
+DO
+  statements
+END DO
+</pre>
+
+<ul>
+
+<li> statements will be executed repeatedly.</li>
+<li> To exit the DO-loop, use the EXIT or CYCLE
+statement.</li>
+<li> The EXIT statement brings the flow of control to
+the statement following (i.e., exiting) the END DO.</li>
+
+<li> The CYCLE statement starts the next iteration
+(i.e., executing statements again).</li>
+</ul>
+
+Same example as before but with EXIT and CYCLE statement.
+
+<pre>
+program odd_number
+  implicit none
+  integer :: N, k
+! odd integers between 0 & N
+  READ(*,*) N
+  WRITE(*,*) 'Odd number between 0 and ', N
+  k = -1
+  DO 
+    k = k + 1
+    if (k > N) EXIT
+    if (mod(k,2) .ne. 0) CYCLE
+    WRITE(*,*) k
+  END DO
+end program odd_number
+</pre>
+
+</section>
+<footer>
+</footer>
+
+</div>
+<script src="javascripts/scale.fix.js"></script>
+</body></html>

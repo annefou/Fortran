@@ -1,0 +1,250 @@
+<!DOCTYPE html>  
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<title>GEO4060 Project Assignment 2015: A simple library for image processing</title>
+    <link rel="stylesheet" href="../stylesheets/substyles.css">
+    <link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+  <body>
+<div class="wrapper"> <header> </header>
+<header>
+This note describes a project assignment for the courses of GEO4060. Although the project is inspired by needs in 
+mathematical computations, and the text contains some (simple) mathematics, there is no need for a thorough understanding of concepts 
+like matrices and vectors to do the project.
+The goal of this project is to manipulate and process PGM (Portable Gray Map) pictures.
+<figure>
+<center>
+   <img alt="pgmEX1" 
+ src="../images/antartica_glaciers_landsatwall.jpg">
+   <figcaption><a href="http://www.geog.ucsb.edu/~jeff/wallpaper2/antartica_glaciers_landsatwall.jpg">Glacier over Antartica</a> </figcaption></center>
+</figure> 
+</header>
+<section>
+<h1>GEO4060 Project Assignment 2015</h1>
+<h1>A simple library for image processing</h1>
+<br>
+<br>
+<br>
+<h2>What is a PGM image?</h2>
+<br>
+You can view&nbsp; PGM pictures using the display program from the
+Image Magick suite (<a href="http://www.imagemagick.org/"
+ target="_blank">http://www.imagemagick.org/</a>).
+Image Magick is available on a wide range of platforms
+including&nbsp; Unix/linux, Mac OS X, and Windows.<br>
+<br>
+On a linux platform, you can<br>
+visualize a PGM picture with the display program:
+<br><br>
+<code>display output.pgm</code>
+<br><br>
+Here is what you should see if you display moon.pgm:
+<figure>
+<center>
+   <img alt="pgmEX1" 
+ src="../images/moon.jpg">
+   <figcaption><a href="http://www.collativelearning.com/2001%20chapter%2013.html">Moon</a> </figcaption></center>
+</figure> 
+<br><br>
+A PGM image consists of a sequence of one or more PGM images. There are<br>
+no data, delimiters, or padding before, after, or between images.<br>
+Each PGM image consists of the following:<br>
+<ol>
+  <li>A "magic number" for identifying the file type. A pgm
+image's magic number is the two characters "P5".</li>
+  <li>&nbsp;Whitespace (blanks, TABs, CRs, LFs).</li>
+  <li>A Width, formatted as ASCII characters in decimal.</li>
+  <li>Whitespace.</li>
+  <li>A Height, again in ASCII decimal.</li>
+  <li>Whitespace.</li>
+  <li>The maximum gray value (Maxval), again in ASCII decimal.
+Must be less than 65536, and more than zero.</li>
+<li>A single whitespace character (usually a newline).</li>
+<li>A raster of Height rows, in order from top to bottom. Each row consists
+of Width gray values, in order from left to right. Each gray value is a
+number from 0 through Maxval, with 0 being black and Maxval being
+white. Each gray value is represented in pure binary by either 1 or 2
+bytes. If the Maxval is less than 256, it is 1 byte. Otherwise, it is 2 bytes.
+The most significant byte is first.</li>
+</ol>
+A row of an image is horizontal. A column is vertical. The pixels in the
+image are square and contiguous.
+Each gray value is a number proportional to the intensity of the pixel.
+Strings starting with <code>"#"</code> may be comments.
+<br>
+<br>
+<h2>Convert to a binary image</h2>
+<br>
+It is sometimes convenient to convert a grayscale image into a binary image, based on a threshold \(t\). 
+
+<br><br>
+To transform a PGM image into a binary image, you would need to loop over the entire image and replace each gray values by 
+\(0\) if \( pic(i,j) <= t \) and \(1\) if \( pic(i,j) > t \). <br>Here \(pic(i,j)\) is the gray value and \(i=1,...,Width\) and \(j=1,...,Height\). 
+
+<br>
+<br>
+Can the resulting image can be stored in PGM format?
+
+<br>
+<br>
+<h2>Edge detection</h2>
+<br>
+
+The goal is to implement a simple graphics-processing method for detecting the edges of features contained in a picture.
+
+For simplicity, we define the edges of a picture by comparing the values of each pixel to its four nearest
+neighbours:<br><br>
+<figure>
+<center>
+  \(
+edge(i,j) = pic(i-1,j) + pic(i+1,j) + pic(i,j-1) 
+          + pic(i,j+1) - 4 pic(i,j)
+\)
+  </center>
+</figure> 
+
+<br><br>
+<ul>
+<li>If a pixel has the same value as its four surrounding neighbours (i.e. no edge) then the value of \(edge(i, j)\)
+will be zero. </li>
+<li>If the pixel is very different from its four neighbours (i.e. a possible edge) then \(edge(i, j)\)
+will be large in magnitude. If you are familiar with the discretization of partial differential equations, you
+will recognise that edge is the second derivative of \(pic\).</li>
+<br>
+<li>We will always consider \(i\) and \(j\) to lie in the range \(1, 2, . . . Width\) and \(1, 2, . . . Height\) respectively. </li>
+<br><br>
+<li>Pixels that lie outside this range (e.g. \(pic(i, 0)\) or \(pic(Width + 1, j)\)) are set to zero.</li>
+<br>
+<br>
+<ol>
+<li>To implement this algorithm, you will first need to be able to read in a picture. </li>
+<li>The result of your edge detection will be stored in a PGM image too. Therefore you also need to implement a routine to write a PGM image. </li>
+<li>Note that the arrays have to be extended in each dimension to accommodate the boundary conditions. 
+We can implement the boundary conditions by setting these halos to zero. You should take care that
+computation only take place on the interior of the pictures, e.g. loops should start at 1 and not 0.</li>
+
+<li>Implement the edge detection method above to compute the edges in newpic based on the
+input stored in oldpic, and look at the output picture.  </li>
+<li>How can you validate your edge detection method?</li>
+
+<li> Run the code on multiple images and check that it works correctly. </li>
+</ol>
+<br>
+<br>
+<h2>Recontruct initial image from its edges</h2>
+It is actually possible to do the inverse operation, i.e. to reconstruct the initial picture from its edges.
+This requires multiple iterations and you should be able to reconstruct the original picture as follows:
+<ul>
+<li> define a new data structure (the simplest one would be an array; but it may not be the best one...) called edge </li>
+ <li>read the initial edges data file into bigpic</li>
+ <li>zero the arrays oldpic, newpic and edge</li>
+ <li>scatter bigpic to edge and set oldpic = edge</li>
+<li> repeat for many iterations: </li>
+  <ul>
+   <li>loop over \(i = 1, 2 . . . Width; j = 1, 2, . . . Height\)</li>
+   <br><br>
+  \[
+   newpic(i,j) = {1 \over 4} \{ oldpic(i-1,j) + oldpic(i+1,j) + \\
+   
+     \qquad   \qquad   \quad      oldpic(i,j-1) + oldpic(i,j+1) - edge(i,j) \} 
+  \]
+  <br><br>
+  <li> end loop</li>
+  <li> set oldpic = newpic</li>
+  </ul>
+<li> end loop over iterations</li>
+<li> write out the final picture as before</li>
+</ul>
+For information, this is the Jacobi algorithm for solving the 2D Poisson equation
+\( \nabla ^2 pic = edge\).
+
+<br><br>
+Implement this reverse algorithm and explain how you can verify your code. For instance, can you easily create a "fake" image?
+
+You should start to see the original picture emerging after around 1000 iterations; 
+after 100000 it should be practically indistinguishable from the original. 
+
+ Rather than running for a fixed number of iterations, it is better to stop when the output picture has
+converged to some tolerance, i.e. when it changes very little between each iteration. We can quantify
+this by computing \(\Delta\) defined by:
+\[
+\Delta ^2 = {1 \over Width \times Height} \sum _{i=1;j=1} ^{Width;Height} (newpic(i,j) -oldpic(i,j))^2
+\]
+and stopping when \(\Delta\) is less than some tolerance, e.g. 0.1.
+
+Use a larger picture (as supplied) and time your program to measure the time (CPU and elapsed). 
+
+
+<br>
+<br>
+<h2>Unit testing framework</h2>
+<br>
+Each tool (main program) and subroutine/function must be carefully tested and these tests may need to be reproduced if a developer changes
+the implementation of a routine/function. This is what we called unit testing.
+<br>
+For our project, you need to make sure that every function and main program can be tested we "fake images". A "Fake" image is an image that has been
+created "manually" or with a known algorithm and for which it is straightforward to get the result of the tested routine. When testing a routine, you
+need to compare the generated result with a reference that we have previously produced.
+<br>
+<br>
+<h2>Performance analysis: timing your application</h2>
+<br>
+It is important to be able to time your application and have a detailed overview of the performance of your code.
+ For this, you will implement a module containing routines to time each subroutine/functions of your tools. 
+ When running a code in "production" i.e. to get scientific results (not during the development phase), you would like to
+ disable these timings as they may slow down your code.
+ <br><br>
+ For this you can for instance define a logical called USE_TIMING which call timing routines when true; for instance:
+ <code>
+ LOGICAL :: USE_TIMING
+ ...
+ if (USE_TIMING) call timeAppInit()
+ ...
+ if (USE_TIMING) call timeAppEnd()
+ </code>
+ <br>
+ The value of USE_TIMING will be an input parameter of your tool (value chosen by users).
+<br>
+<br>
+<h2>The project assignement</h2>
+<br>
+
+The purpose of the project assignment is to create a set of tools to manipulate and process PGM images. You will have to:
+<ol>
+<li> define an appropriate data structure (object) for PGM images, taking into account that your library could be extended in the future to handle various format. 
+You must justify your choice in a separate document. </li>
+<li>a routine to read PGM image</li>
+<li> a routine to write PGM image</li>
+<li>a routine to convert a PGM image into a binary (0 or 1) image with a threshold chosen by the user.</li>
+<li> a routine for edge detection</li>
+<li> routines to time your application: we should be able to measure and print information concerning the CPU and elapsed time</li>
+<li> program(s) for users to run the implemented algorithms on a PGM image of their choice</li>
+<li> a makefile or a simple Unix shell script for compiling and linking the application must be provided. 
+You must provide a simple way to compile your application in debug mode i.e. with debug compiler options and ``standard'' mode.</li>
+<li> a log file should be created by default with information on the run (which subroutines were called, time spent in each subroutine, etc.) 
+and a silent mode (no log file) must be provided too. </li>
+<li> your application and each tool much be tested (unit testing framework) and it must be easy to redo these tests if required.
+A test can be for instance reading a PGM file and write it back into another file and then compare (diff) the two files.</li>
+<li> a documentation must be provided, explaining how to use the set of tools you have implemented and how to extend them 
+(a cookbook for implementing new image processing algorithms, new data formats, new tools)</li>
+<li> your source code must be stored in a repository (github, bitbucket, etc.) and I need to be able to access it.</li>
+</ol>
+<br>
+<br>
+<h2>The final time of delivery</h2>
+<br>
+The final time of delivery is Friday 22.05.2015 at 23:59
+<br>
+<br>
+</section>
+<footer>
+</footer>
+
+</div>
+<script src="javascripts/scale.fix.js"></script>
+</body></html>

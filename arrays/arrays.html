@@ -1,0 +1,203 @@
+<!DOCTYPE html>  
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<title>Getting started with Fortran</title>
+    <link rel="stylesheet" href="../stylesheets/substyles.css">
+    <link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+  <body>
+<div class="wrapper"> <header> </header>
+<header>
+<ul>
+<li><a href=#arraysSyntaxSections>Arrays Syntax & sections</a></li>
+<li><a href=#dynamicAllocation>Dynamic memory allocation</a></li>
+<li><a href=#arrayIntrinsic>Array intrinsic functions</a></li>
+<li><a href=#summary>Summary</a></li>
+</ul>
+</header>
+<section>
+<h1>Arrays in Fortran</h1>
+There are several ways to define a Fortran array but the most important thing to remember is that by default index starts from 1.
+<figure>
+
+<pre>
+INTEGER, PARAMETER :: M = 50, N = 2000
+INTEGER            :: idx(M)
+REAL               :: vector(0:N-1)
+REAL               :: matrix(M,N)
+CHARACTER(LEN=40)  :: screen(200)
+</pre>
+
+or
+<pre>
+INTEGER, PARAMETER                :: M = 50, N = 2000
+INTEGER, DIMENSION(M)             :: idx
+REAL, DIMENSION(0:N-1)            :: vector
+REAL, DIMENSION(M,N)              :: matrix
+CHARACTER(LEN=40), DIMENSION(200) :: screen
+</pre>
+
+ <center>  <figcaption>Arrays in Fortran</figcaption></center>
+</figure> 
+Fortran arrays are very powerful and allows to define:
+<ul>
+<li>matrices</li>
+
+<li>vectors</li>
+
+<li>other arrays with up to 7 dimensions.</li>
+</ul>
+
+
+
+<h2 id="ArraysSyntaxSections">Arrays Syntax & arrays sections</h2>
+<h3>Arrays syntax</h3>
+In older Fortran codes, arrays are usually accessed element by element while in modern Fortran, what is called the Fortran 90 array syntax is used.
+<pre>
+ vector(:) = vector(:) + 1.0
+ 
+ do j=1,n
+    y(:) = y(:) + m(:,J) * x(j)
+ enddo
+</pre>
+The array syntax allows for less explicit do loops. With the "old Fortran" syntax:
+<pre>
+integer, parameter :: N=4, M=3
+real               :: A(M,N), x(N),y(M)
+integer            :: i,j 
+
+y(:) = 0.0
+
+OUTER_LOOP: do j=1,N
+  INNER_LOOP: do i=1,M
+	y(i) = y(i) + A(i,j) * x(j)
+   enddo INNER_LOOP
+enddo OUTER_LOOP
+</pre>
+while with the array syntax:
+<pre>
+integer, parameter :: N=4, M=3
+real               :: A(M,N), x(N),y(M)
+integer            :: j 
+
+y(:) = 0.0
+
+OUTER_LOOP: do j=1,N
+	y(:) = y(:) + A(:,j) * x(j)
+enddo OUTER_LOOP
+</pre>
+
+Do not forget to initialize your arrays!
+<pre>
+do j=1,10
+  vector(j) = 0.0
+  idx(j) = j
+enddo
+</pre>
+or using an array syntax initialization:
+<pre>
+vector = 0
+vector(:) = 0
+idx(1:10)= 0
+idx(0:) = (/ (j, j=0,10)/)
+</pre>
+<h3>Array sections</h3>
+With Fortran array syntax you can access a portion of an array in a very intuitive way: array sections.
+<pre>
+vector(3:8) = 0
+everyThird(1:N:3)= 10
+diagBlock(i-1:i+1,j-2:j+2) = k
+</pre>
+Sections enable you to refer to a sub-block of a matrix or a sub-cube of a 3D array, etc:
+<pre>
+REAL(kind=8) :: A( 1000,1000)
+INTEGER      :: p3D(256,256,256)
+
+A(2:500,3:300:3) = 4.0
+p3D(128:150,56:80,1:256:8) = 4837
+</pre>
+
+However, you have to be very careful when copying array sections. Both left and right hand sides of the assignment statement has to have conforming dimensions:
+<pre>
+LMS(1:3,0:9) = RHS(-2:0,20:29) ! This is OK
+LMS(1:2,0:9) = RHS(-2:0,20:29) ! This is wrong!!!
+</pre>
+
+<h2 id="dynamicAllocation">Dynamic memory allocation</h2>
+So far in our examples the array dimensions have been defined at compile time:
+<ul>
+<li>memory allocation is static</li>
+</ul>
+If an array size depends on the input of your program, its memory should be allocated at runtime:
+<ul>
+<li> memory allocation becomes dynamic</li>
+</ul>
+
+Fortran provides two ways to allocate memory dynamically for arrays:
+<ul>
+<li>Array variable has an ALLOCATABLE (or POINTER) attribute, and memory is allocated through the ALLOCATE statement, and freed through DEALLOCATE
+</li>
+<li>a variable, which is declared in the procedure with size information coming from the argument list or form a module, is an
+automatic array - no ALLOCATE is needed, neither DEALLOCATE</li>
+</ul>
+<pre>
+integer, allocatable :: M(:,:)
+integer              :: err
+
+allocate(M(4,5), STAT=err)
+if (err /= 0) STOP
+...
+deallocate(M)
+</pre>
+If you allocate a variable, you must not forget to deallocate it.
+<br><br><br>
+<h2 id="ArrayIntrinsic">Array intrinsic functions</h2>
+
+Built-in functions can apply various operations on the whole array, not just array elements. 
+As a result either another array or just a scalar value is returned .
+A subset selection through masking is also possible:
+<ul>
+<li>Masking and use of array (intrinsic) functions is often accompanied with the use of FORALL and WHERE array statements.</li>
+</ul>
+<div>
+<span style="color: red; font-weight: bold;">SIZE(array [,dim])</span><br>   returns the number of elements in the arrays, optionally along the specified dimension
+<br><br>
+<span style="color: red; font-weight: bold;">SHAPE(array)</span><br>  returns an INTEGER vector containing SIZE of array with respect to each of its dimension
+<br><br>
+<span style="color: red; font-weight: bold;">COUNT(L_array [,dim])</span><br>  returns the count of elements which are .TRUE. in the LOGICAL L_array
+<br><br>
+<span style="color: red; font-weight: bold;">SUM(array [,dim][,mask])</span><br>  sum of elements, optionally along a dimension, and optionally under mask
+<br><br>
+<span style="color: red; font-weight: bold;">ANY(L_array [,dim])</span><br>  returns a scala value of .TRUE. if any value in LOGICAL L_array is found to be .TRUE.
+<br><br>
+<span style="color: red; font-weight: bold;">MINVAL/MAXVAL(array[,dim][,mask])</span><br>  return the minimum/maximum value in a given array [along specified dimension]
+[,under mask]
+<br><br>
+<span style="color: red; font-weight: bold;">MINLOC/MAXLOC(array [,mask])</span><br>  returns a vector of location(s) [, under mask],
+where the minimum/maximum value(s) is/are found
+<br>
+</div>
+<br><br><br>
+
+<h2 id="summary">Summary</h2>
+<br>
+Arrays make Fortran a very powerful language, especially for computationally intensive program development.
+
+Using its array syntax, vectors and matrices can be initialized and used in a very intuitive way.
+
+Dynamic memory allocation enables sizing your arrays according to particular needs.
+
+Array intrinsic functions further simplify coding effort and improve code readability.
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</section>
+<footer>
+</footer>
+
+</div>
+<script src="javascripts/scale.fix.js"></script>
+</body></html>
