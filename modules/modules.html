@@ -16,18 +16,527 @@
 <ul>
 <li><a href=#structuredProgramming>Structured programming</a></li>
 <li><a href=#procedures>Procedures: functions and subroutines</a></li>
-<li><a href=#arguments>Procedure arguments</a></li>
 <li><a href=#modules>Modules</a></li>
+<li><a href=#summary>Summary</a></li>
 </ul>
 </header>
 <section>
 <h1 id="structuredProgramming">Structured Programming</h1>
+What we call "structured programming" is a way to split your code in blocks (subroutines/functions/modules). It allows to:
+<ul>
+<li>repeat several times the same task while coding it once.</li>
+<li>call the same piece of code from different part of your program</li>
+<li>improve the readibility of your code</li>
+<li>test and debug parts of your code separately (unit testing)</li>
+</ul>
+<h1 id="procedures">Procedures: functions and subroutines</h1>
+In Fortran, "procedures" mean "functions" or/and "subroutines". Functions and subroutines are very similar except 
+a function returns a value while a subroutine doesn't. 
 
-<h1 id="procedures">Procedures: functions and subroutines<h1>
+There are 4 ways to define procedures:
+<ul>
+<li>Internal procedures are defined within the program structure (CONTAINS)</li>
+<li>External procedures are independently declared and may be on another language</li>
+<li>Module procedure are defined in a module (see next section on Modules)</li>
+<li>Procedures defined as part of an object (see object-oriented programming)
+</ul>
 
-<h1 id="arguments">Procedure arguments</h1>
+<h2>Declaration</h2>
+The way you define a procedure is independent of its type. 
+<br>
+To define a subroutine:
+<pre>
+SUBROUTINE sub(args)
+  ...
+END SUBROUTINE sub
+</pre>
+And to call it: <code>CALL sub(args)</code>
+<br><br>
+To define a function:
+<pre>
+[TYPE] FUNCTION funcName(args)
+[RESULT(arg)]
+
+...
+END FUNCTION funcName
+</pre>
+And to call it: <code>res = funcName(args)</code>
+<br>
+
+Here are examples where we use either a function or subroutine to compute the same quantity (10x):
+<br>
+<pre>
+integer function simple_function(s)
+  implicit none
+  integer, intent(in) :: s  ! s is an input parameter
+                            ! it cannot be modified
+
+  simple_function = 10*s
+end function simple_function
+</pre>
+The same function with "RESULT":
+<pre>
+function simple_function(s) result(res)
+  implicit none
+  integer, intent(in) :: s  ! s is an input parameter
+                            ! it cannot be modified
+  integer             :: res ! we define a local variable to
+                             ! store our result
+
+  res = 10*s
+end function simple_function
+</pre>
+And now we can write a subroutine having the very same functionality:
+<pre>
+subroutine simple_function(s,res)
+  implicit none
+  integer, intent(in) :: s   ! s is an input parameter
+                             ! it cannot be modified
+  integer,intent(out) :: res ! res is an output parameter
+
+  res = 10*s
+end subroutine simple_function
+</pre>
+<br>
+Whether you choose to implement a functionality with a "function" or a "subroutine" is up to you. 
+However, once you have chosen a "convention", make sure you stick to it in your programs.
+<br><br><br>
+
+<h2 id="internal">Internal procedures</h2>
+
+Each program unit (PROGRAM/SUBROUTINE/FUNCTION) may contain internal procedures. They must be defined
+at the end of the program unit after adding the CONTAINS statement.
+<br><br>
+<span style="color: red;">Nested CONTAINS statements are
+not allowed.</span>
+<br><br>
+All the variables and objects from the program unit are "visible" to internal procedures.
+
+<pre>
+program main
+  implicit none
+  integer            :: N, err
+  real, allocatable  :: x(:)
+
+  print*, 'Enter an integer N'
+  read*, N
+  allocate(x(N), STAT=err)
+  if (err /= 0 ) STOP
+  call random_number(x)
+
+  print*, 'Processing x...', process()
+  deallocate(x)
+  contains
+  logical function process()
+! in this function N and X can be accessed directly
+! Please not that this method is not recommended:
+! it would be better to pass X as an argument of process
+    implicit none
+
+    if (sum(x) > 5.) then
+       process = .FALSE.
+    else
+       process = .TRUE.
+    endif
+  end function process
+! 
+</pre>
+<br>
+<br>
+<h2 id="external">External procedures</h2>
+External procedures are defined in a separate program unit (can be in another file);
+<ul>
+<li>When you want to use them in another program unit, you need to refer then with the EXTERNAL keyword</li>
+<li>They are compiled separately and linked
+</ul>
+<span style="color: red;">DO NOT USE THEM: modules are much easier and more robust!</span>
+
+They are only needed when procedures are written with different programming language or when using
+external libraries(such as BLAS)
+<br><br>
+<h2 id="example"> Example</h2>
+<pre>
+program main
+  implicit none
+  integer            :: N, err
+  real, allocatable  :: x(:)
+  external           :: subOutside
+
+  print*, 'Enter an integer N'
+  read*, N
+  allocate(x(N), STAT=err)
+  if (err /= 0 ) STOP
+  call random_number(x)
+
+  print*, 'Processing x...', process()
+
+  call printX(x)
+
+  call subOutside(x,N)
+  deallocate(x)
+  contains
+  logical function process()
+! in this function N and X can be accessed directly
+! Please not that this method is not recommended:
+! it would be better to pass X as an argument of process
+    implicit none
+
+    if (sum(x) > 5.) then
+       process = .FALSE.
+    else
+       process = .TRUE.
+    endif 
+  end function process
+! 
+  subroutine printX(x)
+    implicit none
+    real, intent(in)  :: x(:) ! x is defined as part of main
+                              ! so its size and shape is known
+    
+    integer           :: j 
+
+    print*, 'size of x ', size(x)
+    do  j=1,size(x)
+      print*, 'x(',j,') = ', x(j)
+    enddo
+  end subroutine printX
+end program main
+</pre>
+
+And we have another file for instance called external_subroutine.f90:
+<pre>
+!------------------------------
+! subOutside is an external procedure
+subroutine subOutside(y,M)
+  implicit none
+
+  real, intent(in)    :: y(M)
+  integer, intent(in) :: M
+
+
+  integer           :: j
+
+  print*, 'size of y ', size(y)
+  do  j=1,size(y)
+    print*, 'y(',j,') = ', y(j)
+  enddo
+
+! it will not work here:  print*,x
+! because x is not visible from subOutside (no interface)
+end subroutine subOutside
+</pre>
+
+And it must be compiled in two steps:
+<pre>
+gfortran external_subroutine.f90 -c
+gfortran visibility_internal_procedure.f90 external_subroutine.o
+</pre>
+<h2 id="arguments">Procedure arguments</h2>
+
+All the arguments are passed by "reference": any change to an argument's value in a procedure changes its value.
+<br><br>
+<h3>INTENT keyword</h3>
+For the list of arguments, make sure you specify whether these are 
+inputs only INTENT(in), outputs only INTENT(out) or if they are both inputs and outputs 
+INTENT(inout). Each argument can have a different intent. If you don't use INTENT, your argument is by default
+"inout". 
+<br>
+Always use "INTENT" because the compiler can detect error and make some optimization.
+<br>
+<pre>
+SUBROUTINE test(x,y,z)
+  implicit none
+  
+  real, intent(in)    :: x
+  real, intent(out)   :: y
+  real, intent(inout) :: z
+  
+  x=10  ! Compilation error
+  z=y+1 ! compilation error
+  z=19  ! correct
+  y=z*x ! correct
+  
+END SUBROUTINE test
+</pre>
+<br>
+The compiler checks the arguments only if the interface of procedure 
+is known at compilation time: this is the case for internal procedure and module procedures (and for object-oriented programming).
+<br>
+<br>
+<h3>Interface definition</h3>
+For external routines, it can be declared with the INTERFACE block. It can be very useful if you
+get a library or set of routines written in Fortran 77: you can write yourself an INTERFACE block:
+
+<br>
+<br>
+For instance, you can define an interface for <code>g05faf</code> 
+subroutine (generates a set of random number) of the NAG library:
+
+<pre>
+SUBROUTINE nag_rand(table)
+  INTERFACE 
+    SUBROUTINE g05faf(a,b,n,x)
+	  REAL, INTENT(IN)    :: a, b
+	  INTEGER, INTENT(IN) :: n
+	  REAL, INTENT(OUT)   :: x(n)
+	END SUBROUTINE g05faf
+  END INTERFACE
+  REAL, DIMENSION(:), INTENT(OUT) :: table
+  
+  call g05faf(-1.0,-1.0, SIZE(table), table)
+END SUBROUTINE nag_rand
+</pre>
+<br>
+<br>
+<h3>Passing procedures as arguments</h3>
+You may also pass procedures to other procedures (i.e. not only data).
+However, you cannot pass an internal procedure as an argument.
+<pre>
+program degtest
+  implicit none
+  intrinsic asin, acos, atan
+
+  write(*,*) 'arcsin(0.5) : ', deg(ASIN, 0.5)
+  write(*,*) 'arccos(0.5) : ', deg(ACOS, 0.5)
+  write(*,*) 'arctan(1.0) : ', deg(ATAN, 1.0)
+
+CONTAINS
+  REAL function deg(f,x)
+    implicit none
+    
+    intrinsic atan
+    REAL, EXTERNAL :: f
+    REAL, INTENT(IN) :: x
+
+    deg = 45*f(x) / ATAN(1.0)
+  end function deg 
+end program degtest
+</pre>
+<br>
+<br>
+<h3> Passing array arguments</h3>
+There are two ways to pass arrays to procedures:
+<ul>
+<li>Explicit shapre array (dimensions passed explicitely)</li>
+<pre>
+subroutine test(N,M,matrix)
+  implicit none
+  real, dimension(N,M) :: 
+  ...
+end subroutine test
+</pre>
+<li> Assumed (implicit) shape array (only possible if interface is visible):</li>
+<pre>
+subroutine test(matrix)
+  implicit none
+  real, dimension(:,:) :: matrix
+end subroutine test
+</pre>
+</ul>
+<br>
+<br>
 
 <h1 id="modules">Modules</h1>
+<br>
+<br>
+
+<h2>Modular programming</h2>
+<br><br>
+Modules have been introduced in Fortran to help developing modular codes i.e to help
+programmers to split their codes into small modules.
+<br><br>
+<pre>
+MODULE selfContent
+  implicit none
+  integer, parameter :: rkind=SELECTED_REAL_KIND(15,307)
+  
+  contains
+     function myProcessing(x) RESULT(z)
+	    real(kind=rkind):: x,z
+		...
+		
+	 end function myProcessing
+END MODULE selfContent
+</pre>
+<br>
+The procedures defined in modules can be used in any other program unit (according 
+the corresponding USE statement is added). This is a good practice to place procedures in modules
+(instead of internal procedures or external procedures) as it helps the compiler
+to detect programming errors and to optimize your code.
+<br>
+Module procedures are always defined after the CONTAINS statement.
+<br>
+<br>
+And to use a module in another program:
+<pre>
+PROGRAM main
+  USE selfContent
+  implicit none
+  real(kind=rkind) :: val, res
+  
+  test = myProcessing(val)
+END PROGRAM main
+</pre>
+To compile this code, you need to first compile selfContent Fortran module and then the main program:
+<pre>
+gfortran -c selfContent.f90
+gfortran -c -I. main.f90 selfContent.o
+</pre>
+
+<br><br>
+<h2> How to use Fortran modules?</h2>
+<br><br>
+<ul>
+<li>You can define constants in your Fortran module but you should avoid to define
+any other variables (you can define your own data type; see chapter on derived-types)
+</li>
+<li>It helps to hide implementation details (and makes it closer to object-oriented programming)
+</li>
+<li>Use modules to group routines and data structures (but not data)</li>
+<li>Define generic procedures and custom operators</li>
+</ul>
+<br><br>
+<h2>Generic Procedures</h2>
+With Fortran 90, you can define your own generic procedures so that a single procedure name may be used 
+within a program, and the action taken when this name is used is dependent on the type of its arguments. 
+This is also known as polymorphic typing. A generic procedure is defined using an interface block and 
+a generic name is used for all the procedures defined within that interface block. Thus the general form is:
+<pre>
+INTERFACE generic_name
+ specific_interface_body
+ specific_interface_body
+ .
+ .
+ .
+ END INTERFACE
+</pre>
+All the procedures specified in a generic interface block must be unambiguously differentiated, and as a consequence 
+of this either all must be subroutines or all must be functions.
+<br><br>
+For example, suppose we want a subroutine to swap two numbers whether they are both real or both integer. 
+This would require two external subroutines:
+<pre>
+SUBROUTINE swapreal
+ IMPLICIT NONE
+ REAL, INTENT(INOUT) :: a,b
+ REAL :: temp
+ temp=a
+ a=b
+ b=temp
+ END SUBROUTINE swapreal
+</pre>
+<pre>
+SUBROUTINE swapint
+ IMPLICIT NONE
+ INTEGER, INTENT(INOUT) :: a,b
+ temp=a
+ a=b
+ b=temp
+ END SUBROUTINE swapint
+</pre>
+
+This could be invoked with CALL swap(x,y), provided there is an interface block:
+<pre>
+INTERFACE swap
+ SUBROUTINE swapreal (a,b)
+ REAL, INTENT(INOUT) :: a,b
+ END SUBROUTINE swapreal
+ 
+ SUBROUTINE swapint (a,b)
+ INTEGER, INTENT(INOUT) :: a,b
+ END SUBROUTINE swapint
+ END INTERFACE
+</pre>
+<br>
+<br>
+<h2>Overloading Operators</h2>
+<br>
+It is possible to extend the meaning of an intrinsic operator to apply to additional data types. 
+This requires an interface block with the form:
+<pre>
+INTERFACE OPERATOR (intrinsic_operator)
+interace_body
+END INTERFACE
+</pre>
+
+For example, the `+' character could be extended for character variables in order to concatenate two strings 
+ignoring any trailing blanks, and this could be put in a module:
+<pre>
+MODULE operator_overloading
+ IMPLICIT NONE
+ ...
+ INTERFACE OPERATOR (+)
+ MODULE PROCEDURE concat
+ END INTERFACE
+ ... 
+ CONTAINS
+ FUNCTION concat(cha,chb)
+ IMPLICIT NONE
+ CHARACTER (LEN=*), INTENT(IN) :: cha, chb 
+ CHARACTER (LEN=(LEN_TRIM(cha) + LEN_TRIM(chb))) :: concat
+ concat = TRIM(cha)//TRIM(chb)
+ END FUNCTION concat
+ ...
+ END MODULE operator_overloading
+</pre>
+<br>
+Now the expression </code>cha + chb</code> is meaningful in any program unit which USES this module.
+<br>
+
+<br>
+<h2>Defining your own operators</h2>
+<br>
+<br>
+It is possible to define new operators and this is particularly useful when using derived types. 
+Such an operator must have a . at the beginning and end of the operator name. 
+For example, in the preceding example .plus. could have been defined instead of using `+'. The operation needs to be defined via a 
+function, which has one or two non-optional arguments with INTENT(IN). 
+The following example shows the definition of an operator .DIST. which calculates the straight line distance between two derived type `points'. The operator has been defined within a module and so can be used by several program units.
+
+<pre>
+MODULE new_operators
+ IMPLICIT NONE
+ ...
+ INTERFACE OPERATOR (.PLUS.)
+ MODULE PROCEDURE concat
+ END INTERFACE
+ ... 
+ CONTAINS
+ FUNCTION concat(cha,chb)
+ IMPLICIT NONE
+ CHARACTER (LEN=*), INTENT(IN) :: cha, chb 
+ CHARACTER (LEN=(LEN_TRIM(cha) + LEN_TRIM(chb))) :: concat
+ concat = TRIM(cha)//TRIM(chb)
+ END FUNCTION concat
+ ...
+ END MODULE new_operators
+</pre>
+
+The calling program will include:
+<pre>
+USE new_operators
+   character(len=10) :: ch1, ch2
+ ...
+ print*, ch1 .PLUS. ch2
+</pre>
+<br>
+<br>
+<h2>Visibility of objects</h2>
+<br>
+Variables and procedures in modules can be PRIVATE (not visible outside the module) 
+or PUBLIC (visible for all program units using the module). Be careful: if
+you don't say whether a variable is PUBLIC or PRIVATE, then it is PUBLIC (default).
+<br><br>
+<h1 id="summary">Summary</h1>
+
+<ul>
+<li>Fortran uses functions and subroutines</li>
+<li>Procedural programming (subroutines/functions/modules) makes the code more readable and easier to modify.</li>
+<li>Procedures encapsulate some pied of work that makes sense and may be worth re-using elsewhere</li>
+<li>Values of procedur arguments may be changed upon calling the procedure</li>
+<li>Fortran modules are used for modular programming and data encapsulation.</li>
+</ul>
+
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 </section>
