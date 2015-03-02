@@ -1,0 +1,120 @@
+<!DOCTYPE html>  
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<title>Before getting started</title>
+    <link rel="stylesheet" href="stylesheets/substyles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+  <body>
+<div class="wrapper"> <header> </header>
+<header>
+<ul>
+<li><a href=#intro>Introduction</a></li>
+<li><a href=#shell>The unix Shell</a></li>
+<li><a href=#editor>Editing your source files</a></li>
+<li><a href=#git>Version control with git</a></li>
+</ul>
+</header>
+<section>
+<h1 id="intro">Introduction<h1>
+
+<h2>From a linux machine</h2>
+
+Open a terminal and then
+<pre>
+ssh -X sverdrup.uio.no
+</pre>
+
+
+<h2>From a windows machine</h2>
+
+From Windows menu, start X-Win32.
+
+Then create a new connection for <code>sverdrup.uio.no</code>
+<figure>
+<center>
+   <img  alt="X-win32-1" 
+ src="images/X-win32-1.jpg">
+   <figcaption>Create a new connection with X-Win32 on Windows</figcaption></center>
+</figure> 
+
+Click on "Manual..." and define a new configuration for sverdrup:
+<figure>
+<center>
+   <img  alt="X-win32-2" 
+ src="images/X-win32-2.jpg">
+   <figcaption>A new configuration for sverdrup</figcaption></center>
+</figure> 
+
+Then, click on Save (if it does not work, it is likely you'll have 
+to do the same operation every time you login on this machine i.e. your configuration cannot be saved)
+
+Then to open a terminal on sverdrup, click on "Launch" (or "Test"); enter your Login and password.
+
+
+<h2> Set-up your environment</h2>
+
+For the lessons, we need to use a recent version of Fortran, having Fortran 2003 features. 
+To do so and for every session:
+<pre>
+module load gcc/4.9.0
+</pre>
+
+<h2>Clone the Fortran repository to get Fortran examples</h2>
+
+<pre>
+git clone https://github.com/annefou/Fortran
+</pre>
+
+<br>
+<br>
+<h1 id="shell">The unix shell</h1>
+If you are not familiar with any linux shell (for instance bash), please follow this 
+<a href="http://software-carpentry.org/v4/shell/">link</a>. The first steps
+should be sufficient.
+
+<br>
+
+<br>
+
+<h1 id="editor">Editing your source files</h1>
+
+You need an editor (anyone) to write your source code (such as vi, emacs, gedit, etc.). You usually don't need to install a new editor yourself button
+for instance if you want to edit your files from windows, you may install Notpad++.
+ <a href="http://software-carpentry.org/v5/setup.html">Software Carpentry</a> gives some good information on how to do it.
+
+
+<br>
+<br>
+<h1 id="git">Version control with git</h1>
+
+It is very important to keep track of your file with a version control system. It does not have to be in github or bitbucket, you can create your own
+local git repository. It will help you to keep track of your changes and revert some changes if needed.
+
+  You can  find several good tutorials on the web. Here is a short list on git tutorials but feel free to
+use any other resources:
+      <ul>
+      <li>Got   15   minutes   and   want   to   learn   Git?   Follow   this   simple   git   tutorial   at
+      <a href="https://try.github.io/levels/1/challenges/1" class="url" >https://try.github.io/levels/1/challenges/1</a>
+      </li>
+      <li>Learn git with Software carpentry at <a href="http://www.software-carpentry.org/v5/novice/git/" class="url" >
+	  http://www.software-carpentry.org/v5/novice/git/</a>
+      </li>
+      <li>Learn git with Atlassian (<a href="https://www.atlassian.com/git/tutorials/" class="url" >
+	  https://www.atlassian.com/git/tutorials/</a>)</li>
+	  </ul>
+	  
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+</section>
+<footer>
+</footer>
+
+</div>
+<script src="javascripts/scale.fix.js"></script>
+</body></html>
