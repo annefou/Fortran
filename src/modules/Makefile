@@ -12,7 +12,7 @@ FCFLAGS = -O2
 PROGRAMS = intent_test simple_function \
            procedure_arguments visibility_internal_procedure \
            simple_functionR simple_subroutine test_pgm_main \
-           swap_interface_with_main swap_main
+           overloading_main swap_interface_with_main swap_main
 
 all: $(PROGRAMS)
 
@@ -26,6 +26,9 @@ visibility_internal_procedure: external_subroutine.o
 # inside library_pgm.f90.
 test_pgm_main: pgm_library.o
 test_pgm_main.o: pgm_library.o
+
+overloading_main: operator_overloading.o
+overloading_main.o: operator_overloading.o
 
 swap_main: swap_interface.o
 swap_main.o: swap_interface.o

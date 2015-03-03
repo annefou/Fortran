@@ -1,0 +1,18 @@
+MODULE operator_overloading
+ IMPLICIT NONE
+ INTERFACE OPERATOR (+)
+   MODULE PROCEDURE concat
+ END INTERFACE
+ INTERFACE OPERATOR (.PLUS.)
+   MODULE PROCEDURE concat
+ END INTERFACE
+
+ CONTAINS
+
+ FUNCTION concat(cha,chb)
+ IMPLICIT NONE
+ CHARACTER (LEN=*), INTENT(IN) :: cha, chb 
+ CHARACTER (LEN=(LEN_TRIM(cha) + LEN_TRIM(chb))) :: concat
+ concat = TRIM(cha)//TRIM(chb)
+ END FUNCTION concat
+ END MODULE operator_overloading
