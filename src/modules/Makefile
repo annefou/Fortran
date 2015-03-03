@@ -11,7 +11,8 @@ FCFLAGS = -O2
 
 PROGRAMS = intent_test simple_function \
            procedure_arguments visibility_internal_procedure \
-           simple_functionR simple_subroutine test_pgm_main
+           simple_functionR simple_subroutine test_pgm_main \
+           swap_interface_with_main swap_main
 
 all: $(PROGRAMS)
 
@@ -26,6 +27,8 @@ visibility_internal_procedure: external_subroutine.o
 test_pgm_main: pgm_library.o
 test_pgm_main.o: pgm_library.o
 
+swap_main: swap_interface.o
+swap_main.o: swap_interface.o
 # General rule for building prog from prog.o; $^ (GNU extension) is
 # used in order to list additional object files on which the
 # executable depends
