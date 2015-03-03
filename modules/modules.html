@@ -416,7 +416,7 @@ of this either all must be subroutines or all must be functions.
 For example, suppose we want a subroutine to swap two numbers whether they are both real or both integer. 
 This would require two external subroutines:
 <pre>
-SUBROUTINE swapreal
+SUBROUTINE swapreal(a,b)
  IMPLICIT NONE
  REAL, INTENT(INOUT) :: a,b
  REAL :: temp
@@ -426,9 +426,10 @@ SUBROUTINE swapreal
  END SUBROUTINE swapreal
 </pre>
 <pre>
-SUBROUTINE swapint
+SUBROUTINE swapint(a,b)
  IMPLICIT NONE
  INTEGER, INTENT(INOUT) :: a,b
+ INTEGER                :: temp
  temp=a
  a=b
  b=temp
