@@ -9,41 +9,43 @@ MODULE pgm_library
 
 CONTAINS
 
-subroutine read_pgm(img)
+subroutine read_pgm(filename,img)
 implicit none
-  
+character(len=*), intent(in)       :: filename
   integer,allocatable, intent(out) :: img(:,:)
   
   integer             :: nx, ny, nmax, err
 ! read a PGM file
 ! do not need to save what I read as I won't use this information
-  read(*,*) 
-  read(*,*) 
-  read(*,*) nx,ny
+  open(10, file=filename)
+  read(10,*) 
+  read(10,*) 
+  read(10,*) nx,ny
   allocate(img(nx,ny), STAT=err)
   if (err /= 0) STOP
-  read(*,*) nmax
-  read(*,*) img
+  read(10,*) nmax
+  read(10,*) img
+  close(10)
 end subroutine read_pgm
 !----------------------------------------
-subroutine write_pgm(img)
+subroutine write_pgm(filename,img)
 implicit none
 
-  character(len=2)    :: magics
-  character(len=100)  :: comments
-  integer             :: nx, ny, nmax, err
-  integer, intent(in) :: img(:,:)
+  character(len=*), intent(in) :: filename
+  integer, intent(in)          :: img(:,:)
+  integer                      :: nx, ny, nmax, err
   
   nx = size(img,1)
   ny = size(img,2)
   nmax = maxval(img)
 ! write a PGM file  
-  write(*,'("P2")') 
-  write(*,'("# file created by test.f90")')
-  write(*,*) nx,ny
-  write(*,*) nmax
-  write(*,*) img
-
+  open(10,file=filename)
+  write(10,'("P2")') 
+  write(10,'("# file created by test.f90")')
+  write(10,*) nx,ny
+  write(10,*) nmax
+  write(10,*) img
+  close(10)
 end subroutine write_pgm
 !----------------------------------------
 subroutine compress_pgm(img,step, small)
@@ -75,4 +77,5 @@ implicit none
   if (allocated(img)) deallocate(img)
 end subroutine free_pgm
 END MODULE pgm_library
+
 
