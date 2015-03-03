@@ -16,14 +16,89 @@
 <ul>
 <li><a href=#rationale>Why derived data types?</a></li>
 <li><a href=#visibility>Declaration and visibility</a></li>
+<li><a href=#summary>Summary</a></li>
 </ul>
 </header>
 <section>
 <h1 id="rationale">Why derived data types?</h1>
+<br>
+<br>
+A derived type is a data structure which is defined by the programmer:
+<ul>
+<li> Equivalent to structs in C programming language (or matlab)</li>
+<li> Consists of other data types - including other derived types</li>
+</ul>
+We usually define new data type to encapsulate your data and hide its representation:
+<ul>
+<li> A well structured and readable program should try to express its variables as objects</li>
+<li> Variables used in the same context should be grouped together - this makes the program flow 
+easier to understand and less probe to errors (less arguments for subroutines/functions)
+</li>
+<li> Derived data types is a feature which allows programmer to make object grouping possible </li>
+</ul>
 
+
+<br>
+<br>
 <h1 id="visbility">Declaration and visibility<h1>
+<br><br>
+For instance
+<pre>
+ type pgmImage
+    character(len=2)     :: magics
+	character(len=255)   :: createdby
+	integer              :: nx, ny
+	integer              :: maxValue
+	integer, allocatable :: image(:,:)
+ end type pgmImage
+</pre>
+And to declare a variable of type pgmImage:
+<pre>
+TYPE(pgmImage)                :: img1, img2
+TYPE(pgmImage), dimension(10) :: setOfImage
+</pre>
+To initialize:
+<pre>
+  img1%magics='P2'
+  img1%createdby='# manually created...'
+  img1%n1 = 10
+  img1%ny=5
+</pre>
+<br>
+<br>
+When declared in the same programming unit (variable declaration section) derived data types are visible to that unit only (and sub-units under CONTAINS statement)
+When declared in a module unit, a derived type can be accessed outside the module through USE statement.
 
-<h1 id="arguments">Procedure arguments</h1>
+You can define a new data type using another data type:
+<pre>
+  TYPE matrix
+    integer              :: nx, ny
+	integer, allocatable :: M(:,:)
+  END TYPE matrix
+  TYPE header_pgm
+	character(len=2)   :: magics
+	character(len=255) :: createdby
+  END TYPE header_pgm
+  TYPE image_pgm
+    TYPE(matrix)     :: data
+	TYPE(header_pgm) :: header
+  END TYPE image_pgm
+</pre>
+Then to access it:
+<pre>
+  TYPE(image_pgm) :: img
+  img%header%magics='P2'
+  img%header%createdby='# Manually created...'
+</pre>
+
+<h1 id="summary">Summary</h1>
+<ul>
+<li>Derived data types enables grouping of data to form logical objects</li>
+<li>A fortran program becomes more readable and modular with sensible use of derived data types
+</li>
+</ul>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 

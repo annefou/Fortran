@@ -14,15 +14,170 @@
 <div class="wrapper"> <header> </header>
 <header>
 <ul>
-<li><a href=#class>What is a class?</a></li>
 <li><a href=#object-oriented>What is object-oriented programming?</a></li>
 </ul>
 </header>
 <section>
-<h1 id="class">What is a class?</h1>
 
 <h1 id="object-oriented">What is object-oriented programming?<h1>
+The CLASS keyword allows F2003 programmers to create polymorphic variables. 
+A polymorphic variable is a variable whose data type is dynamic at runtime. 
+It must be a pointer variable, allocatable variable, or a dummy argument. 
+Below are some examples of polymorphic variables: 
+<pre>
+subroutine init(sh)
+class(shape) :: sh              ! polymorphic dummy argument
+class(shape), pointer :: p      ! polymorphic pointer variable
+class(shape), allocatable:: als ! polymorphic allocatable variable
+end subroutine
+</pre>
+In the example above, the sh, p, and als polymorphic variables can each hold values of type shape or any type extension of shape. The sh dummy argument receives its type and value from the actual argument to sh of subroutine init(). Just as how polymorphic dummy arguments form the basis to procedure polymorphism, polymorphic pointer and allocatable variables form the basis to data polymorphism. 
 
+The polymorphic pointer variable p above can point to an object of type shape or any of its extensions. For example, 
+
+<pre>
+!//
+!///////////////////////////////////////////////////////////////////////////////
+
+MODULE matrix_mod
+  IMPLICIT NONE
+  !// Make everything not specified as public invisible from outside the
+  !// module
+  PRIVATE
+  !// Declare a  type called vector
+  TYPE, PUBLIC                                :: matrix
+    !// Internal variables for this type
+    INTEGER                                   :: nx = 0
+    INTEGER                                   :: ny = 0
+    INTEGER, POINTER                          :: A(:, :) => null()
+  CONTAINS
+    !// the procedures to load data, to write data to the screen,
+    !// to clear the contents of an object and to copy data from one object
+    !// to another
+    PROCEDURE                                 :: load => load_data
+    PROCEDURE                                 :: dump => dump_data
+    PROCEDURE                                 :: clear => clear_data
+    PROCEDURE                                 :: copy => copy_data
+  END TYPE matrix
+
+  !// A child object based on the parent object maps containing a 2D matrix
+  !// of integer values to hold an elevation map
+  TYPE, PUBLIC, EXTENDS(matrix)               :: pgmImage
+     character(len=2)                         :: magics = 'P2'
+     character(len=255)                       :: createdby = 'NONE'
+     integer                                  :: maxgray = 0
+  END TYPE pgmImage
+
+CONTAINS
+
+  !// A common subroutine for all the object types to load data from a file into the object
+  SUBROUTINE load_data(this, filename)
+    !// A polymorphic object
+    CLASS(matrix)                            :: this
+   
+    character(len=255), intent(in)           :: filename
+    
+    !// Index and status variable
+    INTEGER                                  :: i, res
+
+    !// Find out what kind of object this is
+    SELECT TYPE(this)
+      !// Is it an elevation object
+      CLASS IS (pgmImage)
+        !// Yes, call the corresponding procedure
+        CALL load_pgmImage(this, filename)
+    END SELECT
+
+  END SUBROUTINE load_data
+
+  SUBROUTINE load_pgmImage(this, filename)
+    !// A polymorphic object
+    CLASS(pgmImage)                         :: this
+    character(len=255), intent(in)          :: filename
+    !// File unit number
+    INTEGER                                  :: lun=10
+    OPEN(UNIT=lun, file= filename)
+    read(lun,*) this%magics
+    read(lun,*) this%createdby
+    read(lun,*) this%nx, this%ny
+    read(lun,*) this%maxgray
+    allocate(this%A(this%nx, this%ny))
+    read(lun,*) this%A
+    CLOSE(UNIT=lun)
+  END SUBROUTINE load_pgmImage
+
+  SUBROUTINE dump_data(this)
+    !// A polymorphic object
+    CLASS(matrix)                              :: this
+    !// Find out what kind of object this is
+    SELECT TYPE(this)
+      !// Is it an pgmImage object
+      TYPE IS (pgmImage)
+        !// Yes, write the header and integer values from the array to the screen
+        write(*,'(a2)') this%magics 
+        write(*,'("# Created by dump_data")')
+        write(*,*) this%nx, this%ny
+        write(*,*) maxval(this%A)
+        write(*,*) this%A
+    END SELECT
+  END SUBROUTINE dump_data
+
+  SUBROUTINE clear_data(this)
+    !// A polymorphic object
+    CLASS(matrix)                           :: this
+    !// Clear the header variables
+    this%nx = 0
+    this%ny = 0
+    DEALLOCATE(this%A)
+!nothing specific here...
+  END SUBROUTINE clear_data
+
+  FUNCTION copy_data(this) RESULT(that)
+    CLASS(matrix)                        :: this
+    CLASS(*), POINTER                        :: that
+    CLASS(pgmImage), POINTER                 :: eptr
+    SELECT TYPE(this)
+      TYPE IS (pgmImage)
+        ALLOCATE(eptr)
+        eptr%nx = this%nx
+        eptr%ny = this%ny
+        ALLOCATE(eptr%A(eptr%nx,eptr%ny))
+        eptr%A(:,:) = this%A(:,:)
+        that => eptr
+    END SELECT
+  END FUNCTION copy_data
+
+
+END MODULE matrix_mod
+</pre>
+
+And the main program could be:
+<pre>
+program matrix_main
+  use matrix_mod
+  implicit none
+! create one new object image
+ type(pgmImage),pointer :: image
+
+ !// Holding the number of command line arguments
+  INTEGER                                          :: argc
+  character(len=255)                               :: filename
+
+  argc = COMMAND_ARGUMENT_COUNT()
+
+  if (argc == 1) THEN
+    call get_command_argument(1,filename)
+    allocate(image)
+    image = pgmImage()
+    call image%load(filename)
+    call image%dump()
+    deallocate(image)
+  else
+    write(*,*) 'A filename is needed!'
+  endif
+ 
+end program matrix_main
+</pre>
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
