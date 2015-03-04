@@ -336,6 +336,46 @@ end subroutine test
 <br>
 <br>
 
+<h2>Special attributes for procedures: ELEMENTAL</h2>
+The <code>ELEMENTAL</code> attribute allows for declaring procedures that operate element by element and can be applied to arrays of any dimensions.
+
+This is another way for defininf more general procedures:
+<pre>
+module  elemental_procedure
+  implicit none
+contains
+  elemental real function f(x,y)
+    real, intent(in) :: x,y
+    f = sqrt(x**2 + y**2)
+  end function f
+end module elemental_procedure
+</pre>
+<br>
+Then in the main program:
+<pre>
+program elemental_main
+  use elemental_procedure
+  implicit none
+ 
+  integer, parameter   :: n=5
+  real, dimension(n,n) :: a,b,c
+  real, dimension(n)   :: t,u,v
+
+  call random_number(a)
+  call random_number(b)
+  call random_number(t)
+  call random_number(u)
+  c = f(a,b)
+  v = f(t,u)
+
+  print*, 'c = ', c
+  print*, 'v = ', v
+end program elemental_main
+</pre>
+
+<br>
+<br>
+
 <h1 id="modules">Modules</h1>
 <br>
 <br>
