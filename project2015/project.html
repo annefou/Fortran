@@ -30,7 +30,21 @@ The goal of this project is to manipulate and process PGM (Portable Gray Map) pi
 <br>
 <br>
 <br>
-<h2>What is a PGM image?</h2>
+<ul>
+<li><a href=#whatis>What is a PGM image?</a></li>
+
+<li><a href=#convert>Convert to a binary image</a></li>
+<li><a href=#edge>Edge detection</a></li>
+<li><a href=#reconstruct>Recontruct initial image from its edges</a></li>
+<li><a href=#testing>Unit testing framework</a></li>
+<li><a href=#performance>Performance analysis: timing your application</a></li>
+<li><a href=#summary>The project assignement</a></li>
+<li><a href=#delivery>The final time of delivery</a></li>
+<li><a href=#setup>Setup of your git repository</a></li>
+</ul>
+<br>
+<br>
+<h2 id="whatis">What is a PGM image?</h2>
 <br>
 You can view&nbsp; PGM pictures using the display program from the
 Image Magick suite (<a href="http://www.imagemagick.org/"
@@ -78,7 +92,7 @@ Each gray value is a number proportional to the intensity of the pixel.
 Strings starting with <code>"#"</code> may be comments.
 <br>
 <br>
-<h2>Convert to a binary image</h2>
+<h2 id="convert">Convert to a binary image</h2>
 <br>
 It is sometimes convenient to convert a grayscale image into a binary image, based on a threshold \(t\). 
 
@@ -92,7 +106,7 @@ Can the resulting image can be stored in PGM format?
 
 <br>
 <br>
-<h2>Edge detection</h2>
+<h2 id="edge">Edge detection</h2>
 <br>
 
 The goal is to implement a simple graphics-processing method for detecting the edges of features contained in a picture.
@@ -136,7 +150,7 @@ input stored in oldpic, and look at the output picture.  </li>
 </ol>
 <br>
 <br>
-<h2>Recontruct initial image from its edges</h2>
+<h2 id="reconstruct">Recontruct initial image from its edges</h2>
 It is actually possible to do the inverse operation, i.e. to reconstruct the initial picture from its edges.
 This requires multiple iterations and you should be able to reconstruct the original picture as follows:
 <ul>
@@ -182,7 +196,7 @@ Use a larger picture (as supplied) and time your program to measure the time (CP
 
 <br>
 <br>
-<h2>Unit testing framework</h2>
+<h2 id="testing">Unit testing framework</h2>
 <br>
 Each tool (main program) and subroutine/function must be carefully tested and these tests may need to be reproduced if a developer changes
 the implementation of a routine/function. This is what we called unit testing.
@@ -192,7 +206,7 @@ created "manually" or with a known algorithm and for which it is straightforward
 need to compare the generated result with a reference that we have previously produced.
 <br>
 <br>
-<h2>Performance analysis: timing your application</h2>
+<h2 id="performance">Performance analysis: timing your application</h2>
 <br>
 It is important to be able to time your application and have a detailed overview of the performance of your code.
  For this, you will implement a module containing routines to time each subroutine/functions of your tools. 
@@ -200,18 +214,18 @@ It is important to be able to time your application and have a detailed overview
  disable these timings as they may slow down your code.
  <br><br>
  For this you can for instance define a logical called USE_TIMING which call timing routines when true; for instance:
- <code>
+ <pre>
  LOGICAL :: USE_TIMING
  ...
  if (USE_TIMING) call timeAppInit()
  ...
  if (USE_TIMING) call timeAppEnd()
- </code>
+ </pre>
  <br>
  The value of USE_TIMING will be an input parameter of your tool (value chosen by users).
 <br>
 <br>
-<h2>The project assignement</h2>
+<h2 id="summary">The project assignement</h2>
 <br>
 
 The purpose of the project assignment is to create a set of tools to manipulate and process PGM images. You will have to:
@@ -236,11 +250,52 @@ A test can be for instance reading a PGM file and write it back into another fil
 </ol>
 <br>
 <br>
-<h2>The final time of delivery</h2>
+<h2 id="delivery">The final time of delivery</h2>
 <br>
 The final time of delivery is Friday 22.05.2015 at 23:59
 <br>
 <br>
+<h2 id="setup">Setup of your git repository</h2>
+<br>
+<br>
+On sverdrup in the directory of your choice:
+<pre>
+mkdir ProjectFortran
+cd ProjectFortran
+git config --global user.name "Your Name"
+git config --global user.email "you@some.domain"
+git config --global color.ui "auto"
+git config --global core.editor "your_editor"
+git init
+</pre>
+Display the status of the repository:
+<pre>
+git status
+</pre>
+Add specific files to the staging area:
+<pre>
+git add filename_1 filename_2
+</pre>
+Commit changes in the staging area to the repository's history: (Without -m and a message, this command runs a text editor.)
+<pre>
+git commit -m "Some message explaining your changes"
+</pre>
+<br>
+<br>
+If you need to create a Makefile to compile your code, start from one example provided in github/Fortran.
+<br>
+Once you have finished your project, you can either use github or bitbucket to store it and make it accessible (at least to me) or you 
+can send me a tarball containing your project:
+
+<pre>
+cd ..
+tar cvf ProjectFortran.tar ProjectFortran
+gzip ProjectFortran.tar
+</pre>
+This command is to be done in the same directory you have created ProjectFortran directory. The resulting file is then called <code>ProjectFortran.tar.gz</code>.
+Please note that you do not need to send the data directory (containg PGM images).
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 </section>
 <footer>
 </footer>
