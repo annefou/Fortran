@@ -6,7 +6,7 @@ MODULE matrix_mod
   !// Make everything not specified as public invisible from outside the
   !// module
   PRIVATE
-  !// Declare a  type called vector
+  !// Declare a  type called matrix
   TYPE, PUBLIC                                :: matrix
     !// Internal variables for this type
     INTEGER                                   :: nx = 0
@@ -23,7 +23,7 @@ MODULE matrix_mod
   END TYPE matrix
 
   !// A child object based on the parent object maps containing a 2D matrix
-  !// of integer values to hold an elevation map
+  !// of integer values to hold an pgmImage map
   TYPE, PUBLIC, EXTENDS(matrix)               :: pgmImage
      character(len=2)                         :: magics = 'P2'
      character(len=255)                       :: createdby = 'NONE'
@@ -44,13 +44,28 @@ CONTAINS
 
     !// Find out what kind of object this is
     SELECT TYPE(this)
-      !// Is it an elevation object
+      !// Is it a pgmImage object
       CLASS IS (pgmImage)
         !// Yes, call the corresponding procedure
         CALL load_pgmImage(this, filename)
+      CLASS DEFAULT
+        call load_matrix(this, filename)
     END SELECT
 
   END SUBROUTINE load_data
+
+  SUBROUTINE load_matrix(this, filename)
+    !// A polymorphic object
+    CLASS(matrix)                           :: this
+    character(len=255), intent(in)          :: filename
+    !// File unit number
+    INTEGER                                  :: lun=10
+    OPEN(UNIT=lun, file= filename)
+    read(lun,*) this%nx, this%ny
+    allocate(this%A(this%nx, this%ny))
+    read(lun,*) this%A
+    CLOSE(UNIT=lun)
+  END SUBROUTINE load_matrix
 
   SUBROUTINE load_pgmImage(this, filename)
     !// A polymorphic object
@@ -74,12 +89,16 @@ CONTAINS
     !// Find out what kind of object this is
     SELECT TYPE(this)
       !// Is it an pgmImage object
-      TYPE IS (pgmImage)
+      CLASS IS (pgmImage)
         !// Yes, write the header and integer values from the array to the screen
         write(*,'(a2)') this%magics 
         write(*,'("# Created by dump_data")')
         write(*,*) this%nx, this%ny
-        write(*,*) maxval(this%A)
+        write(*,*) this%maxgray
+        write(*,*) this%A
+      CLASS DEFAULT
+        !// Yes, write the header and integer values from the array to the screen
+        write(*,*) this%nx, this%ny
         write(*,*) this%A
     END SELECT
   END SUBROUTINE dump_data
@@ -99,8 +118,17 @@ CONTAINS
     CLASS(*), POINTER                        :: that
     CLASS(pgmImage), POINTER                 :: eptr
     SELECT TYPE(this)
-      TYPE IS (pgmImage)
+      CLASS IS (pgmImage)
         ALLOCATE(eptr)
+        eptr%magics = this%magics
+        eptr%createdby = this%createdby
+        eptr%maxgray = this%maxgray
+        eptr%nx = this%nx
+        eptr%ny = this%ny
+        ALLOCATE(eptr%A(eptr%nx,eptr%ny))
+        eptr%A(:,:) = this%A(:,:)
+        that => eptr
+      CLASS DEFAULT
         eptr%nx = this%nx
         eptr%ny = this%ny
         ALLOCATE(eptr%A(eptr%nx,eptr%ny))
