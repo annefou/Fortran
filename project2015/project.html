@@ -209,7 +209,44 @@ need to compare the generated result with a reference that we have previously pr
 <h2 id="performance">Performance analysis: timing your application</h2>
 <br>
 It is important to be able to time your application and have a detailed overview of the performance of your code.
- For this, you will implement a module containing routines to time each subroutine/functions of your tools. 
+ For this, you will implement a module containing routines to time each subroutine/functions of your tools.  We wish to have a standardized 
+ outputs such as:
+ <pre>
+      Copyright (C) 2015, UIO
+
+     Process CPU Time (s) | Process Elapsed Time (s) 
+     =====================|==========================
+               0.030      |           0.030               
+     =====================|==========================
+
+     Started on 04/03/2015 at 21:10:18 MET +01:00 from GMT
+     Stopped on 04/03/2015 at 21:10:18 MET +01:00 from GMT
+ </pre>
+ <br>
+ CPU time is the time for which the CPU was busy executing the task. It does not take into account the time spent in waiting for I/O (disk IO or network IO). Since I/O operations, such as reading files from disk, are performed by the OS, these operations may involve noticeable amount of time in waiting for I/O subsystems to complete their operations. This waiting time will be included in the elapsed time, but not CPU time. Hence CPU time is usually less than the elapsed time.
+<br>
+ To measure the CPU time of your code, you can use <code>CPU_TIME</code> Fortran intrinsic subroutine:
+ <pre>
+   REAL(kind=8)  :: start_time, end_time
+   ...
+   call CPU_time(start_time)
+   ... 
+   call CPU_time(end_time)
+   
+   print*, 'CPU time = ', end_time - start_time
+ </pre>
+ 
+ To measure the elasped time:
+ <pre>
+   INTEGER      :: ir
+   real(kind=8) :: elapsed_time_start, elapsesd_time_end 
+   ...
+  CALL SYSTEM_CLOCK(COUNT=elapsed_time_start, count_rate=ir)
+  ...
+  
+  CALL SYSTEM_CLOCK(COUNT=elapsed_time_end)
+  print*, 'Elapsed time = ', (elapsed_time_end - elapsed_time_start ) / real(ir)
+ </pre>
  When running a code in "production" i.e. to get scientific results (not during the development phase), you would like to
  disable these timings as they may slow down your code.
  <br><br>

@@ -20,6 +20,7 @@
 <li><a href=#files>Formatted and unformatted files</a></li>
 <li><a href=#stream>Stream Input/Output</a></li>
 <li><a href=#internal>Internal Input/Output</a></li>
+</li><a href="io_statements">Other Input/output statements</a></li>
 </ul>
 </header>
 <section>
@@ -61,23 +62,188 @@ The unit numbers 0,5 and 6 are predefined.
 <br>
 Some options for opening a file:
 <ul>
-<li> status: existence of the file ('old', 'new', 'replace', 'scratch', 'unknown')</li>
-<li> position: offset, where to start writing ('append')</li>
-<li> action: file operation mode ('write','read','readwrite')</li>
+<li>status: existence of the file ('old', 'new', 'replace', 'scratch', 'unknown')</li>
+<li>position: offset, where to start writing ('append')</li>
+<li>action: file operation mode ('write','read','readwrite')</li>
 <li>form: text or binary file ('formatted', 'unformatted')</li>
 <li>access: direct or sequential file access ('direct','sequential','stream')</li>
 <li>iostat: error indicator, (output) integer (non zero only upon an error)</li>
 <li>err: the label number to jump upon error</li>
 <li>recl: record length, (input) integer for direct access files only. Be careful, it can be in bytes or words...</li>
-
 </ul>
 <br>
+The main options for closing a file:
+<ul>
+<li>iostat: error indicator, (output) integer (non zero only upon an error)</li>
+<li>err: the label number to jump upon error</li>
+<li>status: what to do with the file ('keep', 'remove')</li>
+</ul>
 <br>
 <h1 id="read_write">Reading and Writing from/to a file</h1>
+<br>
+Writing to and reading from a file is done by giving the unit number as a parameter:
+<pre>
+WRITE(10,*) str
+WRITE(unit=10, fmt=*) str
+READ(lu, *) str
+READ(unit=lu,fmt=*) str
+</pre>
+<br>
+If the keyword "unit" is used, you also need to use "fmt" for specifying the format. Please not that
+fmt is only applicable to formatted files (text files only)
+<br>
+<br>
 <h1 id="files">Formatted and unformatted files</h1>
-<h1 id="stream">Stream Input/Output</h1>
-<h1 id="internal">Internal Inout/Output</h1>
+<ul>
+<li>Text or formatted files are human readable and portable (machine independent).</li>
+<li>Binary or unformatted files are machine dependent, not portable. However, they have a much faster access than formatted files. 
+Therefore they very well suited when you need to store a large amount of data. The numbers stored in
+binary files have kept their internal representation (no conversion, no rounding of errors compared to formatted data).
+</ul>
+<br>
+<h2> ascii files (formatted)</h2>
+To prettify outputs and to make it human readable, use format descriptors in connection
+with the WRITE statement. Although less often used nowadays, it can also be used with READ to input data at fixed line positions and using predefined field lengths. 
+<h3> Output Formatting</h3>
+<ul>
+<li>integer : Iw, Iw.m  </li>    
+For instance:
+<pre>
+WRITE(*, '(I5)') J
+</pre>
+<li>Real: Fwd, Ew.d, Ew.dEe, 1P, Gwd</li>
+For instance:
+<pre>
+WRITE(*,'(F7.4)') R
+WRITE(*,'(E12.3E4)') R
+WRITE(*,'(1P,G20.13)') R
+</pre>
+<li>Character: A, Aw  </li>
+For instance:
+<pre>
+WRITE(*,'(A)') C
+</pre>
+<li>Logical: Lw</li>
+For instance:
+<pre>
+WRITE(*,'(L2)') L
+</pre>
+</ul>
+In all these expressions:
+<ul>
+<li>w: width of the output field</li>
+<li>d: number of digits to the right of decimal point</li>
+<li>m: minimum number of characters to be used</li>
+<li>e: number of digits in the exponent</li>
+<li>Variables: Integer :: j; REAL :: R ; CHARACTER :: C; LOGICAL :: L</li>
+</ul>
 
+<h2> Binary files (unformatted)</h2>
+Here is an example to write a sequential binary file:
+<pre>
+REAL :: rval
+CHARACTER(len=60) :: string
+OPEN(10, file="foo.dat", form="unformatted")
+WRITE(10) rval
+WRITE(10) string
+CLOSE(10)
+</pre>
+You cannot use any FORMAT descriptors. To read:
+<pre>
+READ(10) rval
+READ(10) string
+</pre>
+<br>
+<h1 id="stream">Stream Input/Output</h1>
+A binary file write adds extra record delimiters (hidden from programmer) to the beginning and end of recors. In fortran 2003, using access method 'stream'
+avoids this and implements a C-programming like approach:
+<pre>
+REAL header(20), data(300)
+OPEN(10,file="mydata.dat",access='stream')
+WRITE(10) header
+WRITE(10) data
+CLOSE(10)
+</pre>
+If you compare the size of the file generated when using access="stream and without", you will see that the second one is smaller in size.
+<br>
+<h1 id="internal">Internal Input/Output</h1>
+Often it is necessary to filter out data from a given character string or to pack values into a character string. Fortran internal I/O 
+with READ and WRITE becomes handy (no physical are involved at all).
+For instance to extract a number from a given character string:
+<pre>
+CHARACTER(LEN=13) :: CL = "Time step# 10"
+INTEGER :: ISTEP
+READ(CL,fmt='(10X,I3)') ISTEP
+</pre>
+Or to write a text and data to a character string:
+<pre>
+CHARACTER(LEN=60) :: CL
+WRITE(LC, fmt='(A,I0)') 'The number of jobs completed = ', 100
+</pre>
+<h1 id="io_statements">Other Input/output statements</h1>
+<br>
+In addition to the statements that transfer data, there are auxiliary input/output statements to manipulate the external medium, or to inquire about or describe the properties of the connection to the external medium. 
+
+There are nine input/output statements: 
+<ol>
+<li>READ </li>
+<li>WRITE </li>
+<li>PRINT </li>
+<li>OPEN </li>
+<li>CLOSE </li>
+<li>INQUIRE </li>
+<li>BACKSPACE </li>
+<li>ENDFILE </li>
+<li>REWIND </li>
+</ol>
+<br>
+The READ, WRITE, and PRINT statements are data transfer input/output statements. 
+The OPEN, CLOSE, INQUIRE, BACKSPACE, ENDFILE, and REWIND statements are auxiliary input/output statements.
+The BACKSPACE, ENDFILE, and REWIND statements are file positioning input/output statements. 
+<br>
+<h2>INQUIRE statement</h2>
+USE INQUIRE statement to find out information about:
+<ul>
+<li>file existence</li>
+<li>file unit open status</li>
+<li>various file attributes (is the file formatted, unformatted, etc.)</li>
+</ul>
+<pre>
+INQUIRE(file=filename [,options])
+INQUIRE(unit=lun [, options])
+</pre>
+where options can be:
+<pre>
+IOSTAT 
+ERR 
+EXIST
+OPENED
+NUMBER
+NAMED
+NAMEDACCESS
+SEQUENTIAL
+DIRECT
+FORM
+FORMATTED
+UNFORMATED
+RECL
+NEXTREC
+BLANK
+</pre>
+For instance to check if a file exists:
+<pre>
+LOGICAL :: lexist
+INQUIRE(file="myfile.txt", EXIST=lexist)
+</pre>
+If <code>myfile.txt</code> exists, lexist will become .TRUE. and .FALSE. otherwise.
+
+You can also check if a unit is connected:
+<pre>
+LOGICAL :: is_opened
+
+INQUIRE(unit=lun, OPENED=is_opened)
+</pre>
+is_opened is set to .TRUE. if the logical unit lun is conected i.e. a file is opened with this logical unit number.
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 </section>
