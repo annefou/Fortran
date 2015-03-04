@@ -23,8 +23,56 @@
 </ul>
 </header>
 <section>
-<h1 id="format">Input/output formatiing</h1>
+<h1 id="format">Input/output formatting</h1>
+Writing to or reading from a file is similar to writing onto a terminal screen or reading from a keyboard.
+Differences are:
+<ul>
+<li>File must be opened with an OPEN statement, in which the unit number and (optionally) the filename are given</li>
+<li>Subsequent writes (or reads) must refer to a known unit number (used for open)</li>
+<li>File should be closed at the end</li>
+</ul>
 <h1 id="open_close">File opening and closing</h1>
+<br>
+The syntax is:
+
+<pre>
+OPEN([unit=]lunit,file='name' [,options])
+CLOSE([unit=]lunit [,options])
+</pre>
+
+For example:
+<pre>
+OPEN(10, file='output.dat', status='new')
+CLOSE(unit=10)
+</pre>
+<ul>
+<li>The first parameter is the unit number and the keyword <code>unit=</code> can be omitted.
+</li>
+<li>
+The unit numbers 0,5 and 6 are predefined. 
+  <ul>
+  <li>0 is output for standard (system) error messages</li>
+  <li>5 is for standard (user) input</li>
+  <li>6 is for standard (user) output</li>
+  <li>These units are opened by default and should not be re-opened nor closed by users</li>
+  </ul>
+</li>
+
+<br>
+Some options for opening a file:
+<ul>
+<li> status: existence of the file ('old', 'new', 'replace', 'scratch', 'unknown')</li>
+<li> position: offset, where to start writing ('append')</li>
+<li> action: file operation mode ('write','read','readwrite')</li>
+<li>form: text or binary file ('formatted', 'unformatted')</li>
+<li>access: direct or sequential file access ('direct','sequential','stream')</li>
+<li>iostat: error indicator, (output) integer (non zero only upon an error)</li>
+<li>err: the label number to jump upon error</li>
+<li>recl: record length, (input) integer for direct access files only. Be careful, it can be in bytes or words...</li>
+
+</ul>
+<br>
+<br>
 <h1 id="read_write">Reading and Writing from/to a file</h1>
 <h1 id="files">Formatted and unformatted files</h1>
 <h1 id="stream">Stream Input/Output</h1>
