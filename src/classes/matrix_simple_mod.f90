@@ -35,7 +35,7 @@ end subroutine createMat
 subroutine freeMat(mat)
  implicit none
 ! create a new object mat of tpye mat_obj
- type(mat_obj)       :: mat
+ class(mat_obj)       :: mat
  deallocate( mat%A )
 end subroutine freeMat
 end module matrix_simple_mod

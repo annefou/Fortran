@@ -18,19 +18,19 @@ MODULE file_mod
     PROCEDURE                                 :: open => openFileInfo
     PROCEDURE                                 :: loginfo => printFileInfo
     PROCEDURE                                 :: close => closeFileInfo ! cannot use FINAL because the 
-	!                                            ! termination of a program does not invoke any final
-subroutines
+	                                            ! termination of a program does not invoke any final
+                                                ! subroutines
   END TYPE info
 
   !// A child object 
   TYPE, PUBLIC, EXTENDS(info)                 :: timing    
-      INTEGER, DIMENSION(2)                   :: ELA_tim
-      REAL(kind=d), DIMENSION(2)              :: CPU_tim
+      INTEGER, DIMENSION(2)                   :: ELA_tim=(/0,0/)
+      REAL(kind=d), DIMENSION(2)              :: CPU_tim=(/0,0/)
 
-      INTEGER, DIMENSION(8)                   :: values
-      CHARACTER(LEN=8), DIMENSION(2)          :: date
-      CHARACTER(LEN=10), DIMENSION(2)         :: time
-      CHARACTER(LEN=5)                        :: zone
+      INTEGER, DIMENSION(8)                   :: values=0
+      CHARACTER(LEN=8), DIMENSION(2)          :: date=(/"",""/)
+      CHARACTER(LEN=10), DIMENSION(2)         :: time=(/"",""/)
+      CHARACTER(LEN=5)                        :: zone=""
  
       CONTAINS
 

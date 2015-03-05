@@ -6,8 +6,8 @@ program file_main
  type(timing)   :: timer
  integer        :: i
  print*, 'start'
- logs%filename="mylog.txt"
- timer%filename="timings.txt"
+ logs= info(filename="mylog.txt")
+ timer=timing(filename="timings.txt")
  call logs%loginfo("Start program")
  call timer%loginfo("Start program")
  call timer%TIMING_start()
