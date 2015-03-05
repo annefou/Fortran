@@ -9,5 +9,7 @@ program matrix_simple_main
  print*, 'Enter matrix dimension N,M: '
  read*, N, M
  call mat%create(N,M)
-! free will be called automatically because it is the FINAL subroutine
+! free needs to be called manually 
+! (no destructor is called at the termination of a program)
+call mat%free()
 end program matrix_simple_main

@@ -8,7 +8,7 @@ module matrix_simple_mod
     real, dimension(:,:), pointer :: A => null()
     contains 
      procedure :: create => createMat
-     final     :: free
+     procedure :: free => freeMat
   end type mat_obj
 
 CONTAINS
@@ -32,10 +32,10 @@ print*, "create"
  print*, mat%A( (/1,mat%N /), (/1, mat%M /) )
 end subroutine createMat
 
-subroutine free(mat)
+subroutine freeMat(mat)
  implicit none
 ! create a new object mat of tpye mat_obj
  type(mat_obj)       :: mat
  deallocate( mat%A )
-end subroutine free
+end subroutine freeMat
 end module matrix_simple_mod

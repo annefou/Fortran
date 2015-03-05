@@ -18,4 +18,6 @@ program file_main
  ! End portion of code I would like to time
  call timer%TIMING_stop() 
  call logs%loginfo("End program")
+ call logs%close()
+ call timer%close()
 end program file_main

@@ -17,7 +17,9 @@ MODULE file_mod
     !// the procedures to print info
     PROCEDURE                                 :: open => openFileInfo
     PROCEDURE                                 :: loginfo => printFileInfo
-    FINAL                                     :: closeFileInfo
+    PROCEDURE                                 :: close => closeFileInfo ! cannot use FINAL because the 
+	!                                            ! termination of a program does not invoke any final
+subroutines
   END TYPE info
 
   !// A child object 
@@ -61,7 +63,7 @@ CONTAINS
 
   SUBROUTINE closeFileInfo(this)
     !// A polymorphic object
-    TYPE(info)                               :: this
+    CLASS(info)                              :: this
     integer                                  :: err
 
     CLOSE(UNIT=this%lun, IOSTAT=err)
