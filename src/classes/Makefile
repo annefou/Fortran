@@ -9,12 +9,19 @@ FC = gfortran
 FCFLAGS = -g -fbounds-check
 FCFLAGS = -O2
 
-PROGRAMS = matrix_main 
+PROGRAMS = matrix_simple_main matrix_main file_main
 
 all: $(PROGRAMS)
 
+matrix_simple_main: matrix_simple_mod.o
+matrix_simple_main.o: matrix_simple_mod.o
+
 matrix_main: matrix_mod.o
 matrix_main.o: matrix_mod.o
+
+
+file_main: file_mod.o
+file_main.o: file_mod.o
 
 # General rule for building prog from prog.o; $^ (GNU extension) is
 # used in order to list additional object files on which the
