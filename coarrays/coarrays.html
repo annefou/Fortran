@@ -20,8 +20,129 @@
 </header>
 <section>
 <h1 id="hpc">Programming models for HPC</h1>
-<h1 id="features">What is a coarray?</h1>
+Fortran is a very much used to solve large scientific problems. When your problem becomes "large", the computational time increases very quickly and
+it is often necessary to parallelize your application (divide your big problems in many smaller problems that can be run in parallel).
+<br>
+<h2>Serial computing</h2>
+<ul>
+<li>Single processing unit (core) is used for solving a problem</li>
+<li>One task processed at a time</li>
 
+<h2>Parallel computing</h2>
+<li>Multiple cores are used for solving a problem<li>
+<li>Problem is split into smaller subtasks</li>
+<li>Multiple subtasks are processed simultaneously</li>
+</ul>
+
+Parallel computing allows to solve problems faster, to solve bigger problems and to solve problems better (better resolution, etc.).
+
+<br><br>
+There are several standards such as:
+<h2><a href=http://www.open-mpi.org/ >MPI</a></h2>
+  Message Passing Interface is a standardized and portable library to function 
+on a wide variety of parallel computers (distributed memory). It is not specific to Fortran and is very much used.
+<pre>
+! MPI example (Distributed memory)
+! module load openmpi-x86_64
+! mpif90 hello_mpi.f90 -o hello_mpi
+! To execute it:
+! mpirun -np 4 ./hello_mpi
+program hello_mpi
+   implicit none
+   include 'mpif.h'
+   integer  ::  rank, size, ierror, tag
+   integer  ::  status(MPI_STATUS_SIZE)
+   
+   call MPI_INIT(ierror)
+   call MPI_COMM_SIZE(MPI_COMM_WORLD, size, ierror)
+   call MPI_COMM_RANK(MPI_COMM_WORLD, rank, ierror)
+   print*, 'node', rank, ': Hello world'
+   call MPI_FINALIZE(ierror)
+end program hello_mpi
+</pre>
+<h2><a href=http://openmp.org/wp/>OpenMP</a></h2>
+ OpenMP is an Application Program Interface (API) to execute a set of instructions (very often loops)
+in parallel (shared memory)
+<pre>
+program hello_parallel  
+use OMP_LIB  ! Fortran library for parallel OpenMP execution   
+implicit none
+  integer   :: nprocs,myproc    
+  
+!$OMP PARALLEL   PRIVATE(myproc)   
+myproc = OMP_GET_THREAD_NUM()
+write(*,*)'ID: ', myproc, 'hello world'
+
+nprocs = OMP_GET_NUM_THREADS()
+if (myproc == 0) write(*,*) 'There are ', nprocs, ' for this program'
+!$OMP END PARALLEL      
+end program hello_parallel
+
+</pre>
+
+<h1 id="features">What is a coarray?</h1>
+ In May 2005 ISO Fortran Committee decided to include co-arrays as a Fortran Standard. 
+ <br>
+ <br>
+      Co-array official website, www.co-array.org, introduces co-array as: 
+<br>
+<br>
+<br>
+
+
+"Co-array Fortran is a small extension to Fortran 95. It is a simple, explicit notation for data decomposition, 
+such as that often used in message-passing models, expressed in a natural Fortran-like syntax. 
+The syntax is architecture-independent and may be implemented not only on distributed memory machines 
+but also on shared memory machines and even on clustered machines." 
+
+<br>
+<br>
+Coarrays are implemented on CRAY machines (cray compilers), because they were invented by CRAY (a long time ago, as an extension of Fortran and
+ before being called coarrays).
+ 
+ <br>
+ <br>
+ Coarrays adds parallel processing as part of Fortran language. The advantage is that only small changes are required to convert 
+ existing Fortran code to support a robust and potentially efficient parallelism.
+ 
+ <ul>
+ <li>Upon startup a coarrays program gets replicated into a number of copies called images (i.e. processes).</li>
+<li> The number of images is 
+ usually decided at the execution time</li>
+<li>Each “replica” (image) runs asynchronously in a loosely/non-coupled way until program controlled synchronization</li>
+<li>Image’s (local) data are visible within the image only – except for data declared as special arrays i.e. coarrays</li>
+<li>One-sided data communication enables movement of coarray data across different images of a program</li>
+</ul>
+<pre>
+program hello_world
+implicit none
+  write(*,*) 'Hello world from ', &
+   this_image() , 'of', num_images()
+end program hello_world
+</pre>
+<ul>
+<li>num_images() returns the number of images in use for this run (usually set outside the program, by the environment)</li>
+<li>this_image() returns the image number in concern – numbered from 1 to num_images()</li>
+<li>This program is a trivially parallel i.e. each image does not explicitly share any data and runs seemingly independently</li>
+</ul>
+<br>
+An  new data structure, coarrays, become meaningful in parallel programming context, when their data are remotely 
+accessible by its images.
+<br>
+The Fortran syntax for coarrays for Fortran arrays or scalars, for example :
+<pre>
+integer, codimension[*] :: scalar
+integer :: scalar[*]
+real, dimension(64), codimension[*] :: vector
+real :: vector(64)[*]
+</pre>
+It declares a scalar with a local instance on every image and a vector with 64 elements on every image.
+
+The square brackets [*] denote allocation of special coarrays over allocated images (decided upon program startup).
+
+<br>
+Fortran 2008 coarrays are meant to give a more intuitive way for running Fortran codes on massively parallel machines.
+As for Fortran 2003 features, very few compilers implement coarrays yet.
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
 </section>
