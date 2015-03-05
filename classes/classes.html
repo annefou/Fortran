@@ -20,7 +20,105 @@
 <section>
 
 <h1 id="object-oriented">What is object-oriented programming?</h1>
+
+Object-Oriented Programming (OOP) describes an approach to programming where a program is 
+viewed as a collection of interacting, but mostly independent software components. 
+These software components are known as objects and they are typically implemented 
+in a programming language as an entity that encapsulates both data and procedures. 
+<br>
+What we have seen with derived types is closed to OOP in the sense that variables of a derived-type were all grouped together inside the created derived type
+(as they belong to the same entity):
+<pre>
+TYPE pgmImage
+    CHARACTER(LEN=2)                          :: magics
+    CHARACTER(LEN=255)                        :: createdby
+    INTEGER                                   :: nx
+    INTEGER                                   :: ny
+    INTEGER, POINTER                          :: A(:, :)
+END  TYPE pgmImage
+</pre>
+All the subroutines and functions we could use for this new derived-type were included in our module <code>pgm_library</code>
+<pre>
+MODULE pgm_library
+  IMPLICIT NONE
+  TYPE pgmImage
+    CHARACTER(LEN=2)                          :: magics
+    CHARACTER(LEN=255)                        :: createdby
+    INTEGER                                   :: nx
+    INTEGER                                   :: ny
+    INTEGER, POINTER                          :: A(:, :)  ! I could use ALLOCATABLE too
+	                                                      ! It is Fortran 95 and not Fortran 90
+  END  TYPE pgmImage
+CONTAINS
+
+ SUBROUTINE read_pgm(filename,img)
+   IMPLICIT NONE
+   character(LEN=*), intent(IN) :: filename  ! intent is IN because filename 
+                                             ! is not modified in the subroutine
+	TYPE(pgmImage), intent(out)              :: img
+ END SUBROUTINE read_pgm
+ .
+ .
+ .
+END MODULE pgm_library
+</pre>
+However, these subroutines/functions are not part of the derived-type itself and the advantage of writing them in the same
+module (with the derived-type) is for readability. With an Object-oriented approach, we will give more information to users (programmers using your 
+new derived-type), telling them which subroutines/functions can be applied (i.e. making sense) to this new derived-type:
+<pre>
+MODULE pgm_library
+  IMPLICIT NONE
+  TYPE pgmImage
+    CHARACTER(LEN=2)                          :: magics
+    CHARACTER(LEN=255)                        :: createdby
+    INTEGER                                   :: nx
+    INTEGER                                   :: ny
+    INTEGER, POINTER                          :: A(:, :)  ! I could use ALLOCATABLE too
+	                                                      ! It is Fortran 95 and not Fortran 90
+														  
+	CONTAINS     ! this contains is used to list the subroutines/functions attached to this data type													  
+        PROCEDURE :: read => read_pgm    ! needs to have an "official" name (read) and an alias (read_pgm)
+		FINAL     :: free_pgm            ! cannot have an alias (non-polymorphic)
+  END  TYPE pgmImage
+CONTAINS
+
+ SUBROUTINE read_pgm(filename,img)
+   IMPLICIT NONE
+   character(LEN=*), intent(IN)    :: filename  ! intent is IN because filename 
+                                                ! is not modified in the subroutine
+	CLASS(pgmImage), intent(inout) :: img       ! we need to use CLASS instead of TYPE and CANNOT have INTENT(OUT)
+	
+ END SUBROUTINE read_pgm
+ .
+ .
+ .
+END MODULE pgm_library
+</pre>
+In the main, you do not need to call <code>free_pgm</code> as it is automatically called by Fortran.
+<pre>
+program matrix_main
+  USE pgm_library
+  implicit none
+
+! create a new object image of type pgmImage
+ type(pgmImage) :: image
+ 
+ call image%read("../../data/moon.pgm")     ! call read and not read_pgm
+                                            ! I do not need to pass image as an argument as
+											! read is "belong" to image and is applied to "itself"
+! free will be called automatically because it is the FINAL subroutine
+end program matrix_main
+</pre>
+<br>
 The CLASS keyword allows F2003 programmers to create polymorphic variables. 
+Polymorphism is a term used in software development to describe a variety of 
+techniques employed by programmers to create 
+flexible and reusable software components. The term is Greek and it loosely translates to "many forms". 
+
+In programming languages, a polymorphic object is an entity, such as a variable or a procedure, 
+that can hold or operate on values of differing types during the program's execution. Because a polymorphic object can operate on a variety of values and types, it can also be used in a variety of programs, sometimes with little or no change by the programmer. The idea of write once, run many, also known as code reusability, is an important characteristic to the programming paradigm known as Object-Oriented Programming (OOP). 
+
+
 A polymorphic variable is a variable whose data type is dynamic at runtime. 
 It must be a pointer variable, allocatable variable, or a dummy argument. 
 Below are some examples of polymorphic variables: 
@@ -33,7 +131,12 @@ end subroutine
 </pre>
 In the example above, the sh, p, and als polymorphic variables can each hold values of type shape or any type extension of shape. The sh dummy argument receives its type and value from the actual argument to sh of subroutine init(). Just as how polymorphic dummy arguments form the basis to procedure polymorphism, polymorphic pointer and allocatable variables form the basis to data polymorphism. 
 
-The polymorphic pointer variable p above can point to an object of type shape or any of its extensions. For example, 
+The polymorphic pointer variable p above can point to an object of type shape or any of its extensions. 
+
+<br>
+ 
+<br>
+For example, 
 
 <pre>
 !//
