@@ -1,0 +1,6 @@
+&LIST
+t=3*2,
+i=1,  
+k=4,
+ch="Hello World" 
+/
