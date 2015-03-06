@@ -77,8 +77,8 @@ MODULE pgm_library
 	                                                      ! It is Fortran 95 and not Fortran 90
 														  
 	CONTAINS     ! this contains is used to list the subroutines/functions attached to this data type													  
-        PROCEDURE :: read => read_pgm    ! needs to have an "official" name (read) and an alias (read_pgm)
-		FINAL     :: free_pgm            ! cannot have an alias (non-polymorphic)
+        PROCEDURE     :: read => read_pgm    ! needs to have an "official" name (read) and an alias (read_pgm)
+		PROCEDURE     :: free => free_pgm          
   END  TYPE pgmImage
 CONTAINS
 
@@ -94,7 +94,7 @@ CONTAINS
  .
 END MODULE pgm_library
 </pre>
-In the main, you do not need to call <code>free_pgm</code> as it is automatically called by Fortran.
+And the main program would be:
 <pre>
 program matrix_main
   USE pgm_library
@@ -106,32 +106,35 @@ program matrix_main
  call image%read("../../data/moon.pgm")     ! call read and not read_pgm
                                             ! I do not need to pass image as an argument as
 											! read is "belong" to image and is applied to "itself"
-! free will be called automatically because it is the FINAL subroutine
+ call image%free()                          ! free is called to deallocate dynamic arrays, etc.
 end program matrix_main
 </pre>
 <br>
 The CLASS keyword allows F2003 programmers to create polymorphic variables. 
 Polymorphism is a term used in software development to describe a variety of 
 techniques employed by programmers to create 
-flexible and reusable software components. The term is Greek and it loosely translates to "many forms". 
+flexible and reusable software components. 
 
+<br>
 In programming languages, a polymorphic object is an entity, such as a variable or a procedure, 
 that can hold or operate on values of differing types during the program's execution. Because a polymorphic object can operate on a variety of values and types, it can also be used in a variety of programs, sometimes with little or no change by the programmer. The idea of write once, run many, also known as code reusability, is an important characteristic to the programming paradigm known as Object-Oriented Programming (OOP). 
-
+<br>
 
 A polymorphic variable is a variable whose data type is dynamic at runtime. 
 It must be a pointer variable, allocatable variable, or a dummy argument. 
 Below are some examples of polymorphic variables: 
 <pre>
-subroutine init(sh)
-class(shape) :: sh              ! polymorphic dummy argument
-class(shape), pointer :: p      ! polymorphic pointer variable
-class(shape), allocatable:: als ! polymorphic allocatable variable
+subroutine init(image)
+class(pgmImage) :: image              ! polymorphic dummy argument
+class(pgmImage), pointer :: p      ! polymorphic pointer variable
+class(pgmImage), allocatable:: als ! polymorphic allocatable variable
 end subroutine
 </pre>
-In the example above, the sh, p, and als polymorphic variables can each hold values of type shape or any type extension of shape. The sh dummy argument receives its type and value from the actual argument to sh of subroutine init(). Just as how polymorphic dummy arguments form the basis to procedure polymorphism, polymorphic pointer and allocatable variables form the basis to data polymorphism. 
+In the example above, the image, p, and als polymorphic variables can each hold values of type pgmImage or any type extension of pgmImage.
+ The image dummy argument receives its type and value from the actual argument image of subroutine init(). 
+ <br> 
 
-The polymorphic pointer variable p above can point to an object of type shape or any of its extensions. 
+The polymorphic pointer variable p above can point to an object of type pgmImage or any of its extensions. 
 
 <br>
  
