@@ -1,0 +1,585 @@
+<!DOCTYPE html>  
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<title>GEO4060 Project Assignment 2016: A simple numerical analysis and data processing library</title>
+    <link rel="stylesheet" href="../stylesheets/substyles.css">
+    <link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+  <body>
+<div class="wrapper"> <header> </header>
+<header>
+This note describes the project assignment for GEO4060 course. Although the project is inspired by needs in 
+mathematical computations, and the text contains some (simple) mathematics, there is no need for a thorough understanding of concepts 
+like matrices and vectors to do the project.
+The goal is to work together as a team on the development of a simple numerical analysis and data processing library.
+
+</header>
+<section>
+
+<h1>GEO4060 Project Assignment 2016</h1>
+<h1>A simple numerical analysis and data processing library</h1>
+<br>
+<br>
+<br>
+<ul>
+<li><a href=#requirements>Requirements</a></li>
+<li><a href=#formats>Data format</a></li>
+<li><a href=#frequency>Frequency filtering using FFT</a></li>
+<li><a href=#performance>Performance analysis: timing your application</a></li>
+<li><a href=#summary>Work to do</a></li>
+<ol>
+
+<li><a href=#ex1>Read/Write methods</a></li>
+<li><a href=#conversion>Convert formats</a></li>
+
+<li><a href=#selection>Size reduction or sub-area</a></li>
+
+
+<li><a href=#ex2>Timing methods</a></li>
+<li><a href=#ex3>Fortran 2003 data structures (class)</a></li>
+<li><a href=#ex8>Final library</a></li>
+</ol>
+<li><a href=#delivery>The final time of delivery</a></li>
+</ul>
+<br>
+<br>
+<h2 id="requirements">Requirements</h2>
+<br>
+There are some requirements on tools and packaging of this project:
+<ul>
+  <li>The project must use the same GitHub code repository (it will be setup at <a href="https://github.uio.no/">https://github.uio.no/</a> during the course), and all codes must be regularly committed. Use a git branch rather than keeping code completely out of the repository.</li>
+  <li>The project must be fully automatically buildable, runnable, and testable on a generic linux desktop, using the GNU Fortran >= 5.2.0 compiler.</li>
+</ul>
+
+<br>
+<br>
+<h2 id="formats">Data formats</h2>
+<br>
+The goal of this data processing library is to manipulate different data file format and be able to apply the same processing whatever the format used. As a first attempt, we will consider the following data formats:
+<ul>
+<li><a href=#pgm>PGM data format</a>
+  <ul>
+    <li><a href=#pgma>PGMA</a></li>
+    <li><a href=#pgmb>PGMB</a></li>
+  </ul>
+</li>
+<li><a href=#ppm>PPM data format</a>
+  <ul>
+    <li><a href=#ppma>PPMA</a></li>
+    <li><a href=#ppmb>PPMB</a></li>
+  </ul>
+</li>
+<li><a href=#pbm>PBM</a></li>
+<li><a href=#netCDF>netCDF</a>
+  <ul>
+    <li><a href=#CDL>CDL</a></li>
+    <li><a href=#netcdf_binary>netCDF</a></li>
+  </ul>
+</li>
+</ul>
+<br>
+
+<h3 id="pgm">PGM</h3>
+PGMA and PGMB are variant from the PGM data format. We first introduce <a href="http://netpbm.sourceforge.net/doc/pgm.html">PGM format</a>:
+ <a href="http://netpbm.sourceforge.net/doc/pgm.html">PGM</a> stands for "Portable Gray Map" and is a simple grayscale file format.
+A PGM file consists of a sequence of one or more PGM images. There are no data, delimiters, or padding before, after, or between images.
+
+One PGM image must contain:
+<ol>
+    <li>A "magic number" for identifying the file type. A pgm image's magic number is the two characters "P5", "P2" (it depends on the type of PGM file).
+    </li>
+    <li>Whitespace (blanks, TABs, CRs, LFs).
+    </li>
+    <li>A width, formatted as <a href="http://www.asciitable.com/">ASCII</a> characters in decimal.
+    </li>
+    <li>Whitespace.
+    </li>
+    <li>A height, again in ASCII decimal.
+    </li>
+    <li>Whitespace.
+    </li>
+    <li>The maximum gray value (Maxval), again in ASCII decimal. Must be less than 65536, and more than zero.
+    </li>
+    <li>A single whitespace character (usually a newline).
+    </li>
+    <li>A raster of Height rows, in order from top to bottom. Each row consists of Width gray values, in order from left to right. Each gray value is a number from 0 through Maxval, with 0 being black and Maxval being white. Each gray value is represented in pure binary by either 1 or 2 bytes. If the Maxval is less than 256, it is 1 byte. Otherwise, it is 2 bytes. The most significant byte is first. 
+    </li>
+</ol>
+<h4 id="pgma">PGMA</h4>
+PGMA is the <a href="http://www.asciitable.com/">ASCII</a> (American Standard Code for Information Interchange) form of the portable gray map <a href="http://netpbm.sourceforge.net/doc/pgm.html">PGM format</a>. A PGMA file is therefore a text file (human readable!).
+The magic number of PGMA files is "P2".
+
+As it is a text format, you can edit, read file content with any editor (<a href="http://www.sublimetext.com">sublime</a>, <a href="http://www.nano-editor.org">nano</a>, <a href="http://www.gnu.org/software/emacs">emacs</a>, <a href="http://www.vim.org">vim</a>, etc.). Here is a simple example:
+<pre>
+P2
+# feep.ascii.pgm
+24 7
+15
+0 0  0  0  0  0  0  0  0 0  0  0  0  0  0  0  0 0  0  0  0  0  0  0
+0 3  3  3  3  0  0  7  7 7  7  0  0 11 11 11 11 0  0 15 15 15 15  0
+0 3  0  0  0  0  0  7  0 0  0  0  0 11  0  0  0 0  0 15  0  0 15  0
+0 3  3  3  0  0  0  7  7 7  0  0  0 11 11 11  0 0  0 15 15 15 15  0
+0 3  0  0  0  0  0  7  0 0  0  0  0 11  0  0  0 0  0 15  0  0  0  0
+0 3  0  0  0  0  0  7  7 7  7  0  0 11 11 11 11 0  0 15  0  0  0  0
+0 0  0  0  0  0  0  0  0 0  0  0  0  0  0  0  0 0  0  0  0  0  0  0
+</pre>
+<br>
+<h4 id="pgmb">PGMB</h4>
+PGMB stands for "Portable Gray Map Binary" and is the binary form of the portable gray map <a href="http://netpbm.sourceforge.net/doc/pgm.html">PGM format</a>. 
+The magic number of PGMB files is "P5". As it is a binary format, you need a "program" to manipulate these data files.
+<br>
+<br>
+<h3 id="ppm">PPM</h3>
+PPM stands for "Portable PixMap" and is very similar to PGM format except that one pixel is represented by 3 integers values and is therefore capable of handling colour component using the <a href="https://en.wikipedia.org/wiki/RGB_color_model">RGB</a> colour model (Red,Green,Blue).
+<br>
+A PPM file consists of two parts, a header and the image data. The header consists of at least three parts normally delineated by carriage returns and/or linefeeds but the PPM specification only requires white space. The first "line" is a magic PPM identifier, it can be "P3" or "P6" (not including the double quotes!). The next line consists of the width and height of the image as ASCII numbers. The last part of the header gives the maximum value of the colour components for the pixels, this allows the format to describe more than single byte (0..255) colour values. In addition to the above required lines, a comment can be placed anywhere with a "#" character, the comment extends to the end of the line.
+<br>
+Here is an example of PPM header:
+<pre>
+P3
+1024 # the image width
+788 # the image height
+# A comment
+1023
+</pre>
+
+<h4 id="ppma">PPMA</h4>
+PPMA data format is the ASCII version of the PPM format. 
+The magic number of PPMA files is "P3" and the numerical value of each pixel ranges from 0 to the maximum value given in the header. The lines should not be longer than 70 characters. 
+<br>
+Here is an example of PPMA image:
+<pre>
+P3
+# example from the man page
+4 4
+15
+ 0  0  0    0  0  0    0  0  0   15  0 15
+ 0  0  0    0 15  7    0  0  0    0  0  0
+ 0  0  0    0  0  0    0 15  7    0  0  0
+15  0 15    0  0  0    0  0  0    0  0  0
+</pre>
+<br>
+<h4 id="ppmb">PPMB</h4>
+PPMB stands for "Portable PixMap" binary format. 
+The magic number of PPMB files is "P6" and the image data is stored in byte format, one byte per colour component (r,g,b).
+Comments can only occur before the last field of the header and only one byte may appear after the last header field, normally a carriage return or line feed. "P6" image files are obviously smaller than "P3" and much faster to read. Note that "P6" PPM files can only be used for single byte colours.
+While not required by the format specification it is a standard convention to store the image in top to bottom, left to right order. Each pixel is stored as a byte, value 0 == black, value 255 == white. The components are stored in the "usual" order, red - green - blue. 
+<br>
+<br>
+<h4 id="pbm">PBM</h4>
+ PBM stands for Portable BitMap and stores single bit pixel image as a series of ASCII "0" or "1"'s. Traditionally "0" refers to white while "1" refers to black. The header is identical to PPM and PGM format except there is no third header line (the maximum pixel value doesn't have any meaning!). 
+
+The magic identifier for PBM is "P1".
+
+Here is an example of a small bitmap in this format, as with PPM files there can be no more than 70 characters per line.
+<pre>
+P1
+# PBM example 
+24 7
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+0 1 1 1 1 0 0 1 1 1 1 0 0 1 1 1 1 0 0 1 1 1 1 0
+0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 1 0
+0 1 1 1 0 0 0 1 1 1 0 0 0 1 1 1 0 0 0 1 1 1 1 0
+0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0
+0 1 0 0 0 0 0 1 1 1 1 0 0 1 1 1 1 0 0 1 0 0 0 0
+0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+</pre>
+
+<br>
+To visualize PGM, PPM or PBM images, you can use <a href="https://www.gimp.org/">gimp</a> or any similar utilities. gimp can be installed on Linux, Windows and Mac OS X.
+For instance:
+<pre>
+gimp file.ppm
+</pre>
+You may have to zoom (View--> Zoom) as we may manipulate small images...
+<br>
+<br>
+<h3 id="netCDF"><a href="http://www.unidata.ucar.edu/software/netcdf/">netCDF</a></h3>
+NetCDF is a self-describing, machine-independent binary data formats that support the creation, access, and sharing of array-oriented scientific data. 
+In the simple view, netCDF is a:
+<ul>
+    <li>Data model </li>
+    <li>File format </li>
+    <li>Application programming interface (API) </li>
+    <li>Library implementing the API</li>
+</ul>
+Together the data model, file format, and APIs support the creation, access, and sharing of scientific data. 
+<br>
+NetCDF was developed and is maintained at <a href="http://www.unidata.ucar.edu/software/netcdf/">Unidata</a>.
+<br>
+As it is a binary data format, we cannot read netCDF files with a simple editor and we need to write programs. Hopefully, Unidata provides users with a set of libraries and program utilities to read/write and manipulate netCDF data file. netCDF software library and utilities are available on all the Linux computers of the Department of Geosciences. 
+<br>
+The goal here is not to give you an extensive description of netCDF format and associated utilities but just to give you what is required for this project. If you wish to learn more about netCDF, visit <a href="http://www.unidata.ucar.edu/software/netcdf/">Unidata website</a> and <a href="http://www.unidata.ucar.edu/software/netcdf/docs/user_guide.html">netCDF user documentation</a>. 
+<br>
+
+<h4 id="CDL">CDL</h4>
+We will first use <a href="https://www.unidata.ucar.edu/software/netcdf/docs/netcdf_utilities_guide.html">CDL</a> (Common Data form Language) a human-readable text representation of netCDF data. 
+<br>
+CDL files are ASCII file written using the CDL Syntax. For our project, we aim at using CDL to describe images, i.e. 2 dimensional arrays. A CDL file is made of 3 sections:
+<ol>
+<li> dimensions: in this section, the dimensions of your image is defined. You can give any "names" to your dimensions (x=3, dim1=3, etc.)</li>
+<li>variables: the list of variables with their types, and dimensions is provided</li>
+<li>data: in this section, the values for each variable is given. Values must be comma separated.</li>
+</ol> 
+
+The 3 sections are encapsulated within a netCDF "section" identified by curly brackets. After "netcdf" keyword, the name of the netCDF section must be given.
+
+Here is an example of CDL file:
+<pre>
+netcdf simple_img {
+dimensions:
+	x = 7 ;
+	y = 24 ;
+variables:
+	int image(x, y) ;
+data:
+
+ image =
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+  0,3,3,3,3,0,0,7,7,7,7,0,0,11,11,11,11,0,0,15,15,15,15,0,
+  0,3,0,0,0,0,0,7,0,0,0,0,0,11,0,0,0,0,0,15,0,0,15,0,
+  0,3,3,3,0,0,0,7,7,7,0,0,0,11,11,11,0,0,0,15,15,15,15,0,
+  0,3,0,0,0,0,0,7,0,0,0,0,0,11,0,0,0,0,0,15,0,0,0,0,
+  0,3,0,0,0,0,0,7,7,7,7,0,0,11,11,11,11,0,0,15,0,0,0,0,
+  0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 ;
+}
+</pre>
+This example specifies a netCDF dataset with two dimensions (x and y), one variable (image), and some data values for the variable.
+<ul>
+    <li>This example has only one variable, but multiple variables may be included in a netCDF file.
+</li>
+
+<li>    CDL comments follow "//" symbols. They are not part of netCDF data.</li> 
+</ul>
+    You can use the ncgen utility to generate a binary netCDF file from CDL and then utilities such as <a href="http://meteora.ucsd.edu/~pierce/ncview_home_page.html">ncview</a> or <a href="http://www.giss.nasa.gov/tools/panoply/">Panoply</a> to visualize your netCDF file:
+<pre>
+ncgen simple_img.cdl
+</pre>
+A new output file called simple_img.nc will be generated.
+To visualize it (on sverdrup):
+<pre>
+module load panoply
+panoply.sh simple_img.nc
+</pre>
+Once panoply is up and running, choose your variable (called image in our example) and click on "Create Plot". Choose how you wish to plot your variable:
+<figure>
+<center>
+   <img alt="panoplyCreatePlot"
+ src="../images/panoply_createPlot.png">
+   <figcaption>Panoply Create Plot </figcaption></center>
+</figure>
+
+<figure>
+<center>
+   <img alt="panoplyPlot"
+ src="../images/panoply_plot.png">
+   <figcaption>Plot of a netCDF image with panoply</figcaption></center>
+</figure>
+Remarque: Panoply is a simple tool that can be installed on various platform (Windows, Mac OSX, Linux) and is therefore very portable.
+<br>
+<br>
+<h4 id="netcdf_binary">netCDF</h4>
+Here we refer to the binary netCDF format. To create or read netCDF files, we can use the <a href="http://www.unidata.ucar.edu/software/netcdf/">Unidata netCDF library</a>. A Fortran 90 API (Application Program Interface) is available as part of the netCDF libraries and provides users with an easy way to interact with netCDF within a Fortran program. The source code corresponding to the Fortran 90 netCDF interface is available on github (<a href="https://github.com/Unidata/netcdf-fortran">https://github.com/Unidata/netcdf-fortran</a>).  
+<br>
+The <a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/index.html#Top">netCDF Fortran API</a> contains an exhaustive list of routine you can use to manipulate netCDF. Here we only show simple example to create and read netCDF files and how to compile these Fortran codes.
+Many netCDF examples can be found at <a href="http://www.unidata.ucar.edu/software/netcdf/examples/programs/">http://www.unidata.ucar.edu/software/netcdf/examples/programs/</a>. The two programs we wish to use (and modify to include them in our library) are:
+<ul>
+<li>Fortran 90: <a href="http://www.unidata.ucar.edu/software/netcdf/examples/programs/simple_xy_wr.f90">simple_xy_wr.f90</a>: to write a 2D variable in a netCDF file</li>
+<li>Fortran 90: <a href="http://www.unidata.ucar.edu/software/netcdf/examples/programs/simple_xy_rd.f90">simple_xy_rd.f90</a>: to read the netCDF file generated with <a href="http://www.unidata.ucar.edu/software/netcdf/examples/programs/simple_xy_wr.f90">simple_xy_wr.f90</a></li>
+</ul>
+<br>
+In these two previous examples, we will use the following Fortran 90 subroutines:
+<br>
+<br>
+<h5 id="create_netcdf"><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/Creating-a-NetCDF-Dataset.html#Creating-a-NetCDF-Dataset">Creating a new NetCDF Dataset</a></h5>
+As we are creating very simple netCDF files, the list of Fortran calls we would need to use are:
+<ol>
+<li><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/NF90_005fCREATE.html#NF90_005fCREATE">NF90_CREATE</a>: create netCDF dataset: enter define mode
+</li>
+<li><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/NF90_005fDEF_005fDIM.html#NF90_005fDEF_005fDIM">NF90_DEF_DIM</a>: define dimensions: from name and length
+</li>
+<li><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/NF90_005fDEF_005fVAR.html#NF90_005fDEF_005fVAR">NF90_DEF_VAR</a>: define variables: from name, type, dims
+</li>
+<li><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/NF90_005fENDDEF.html#NF90_005fENDDEF">NF90_ENDDEF</a>:  end definitions: leave define mode
+</li>
+<li><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/NF90_005fPUT_005fVAR.html#NF90_005fPUT_005fVAR">NF90_PUT_VAR</a> :  provide values for variable
+</li>
+<li><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/NF90_005fCLOSE.html#NF90_005fCLOSE">NF90_CLOSE</a>:    close: save new netCDF dataset
+</li>
+</ol>
+<h5 id="read_netcdf"><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/Reading-a-NetCDF-Dataset-with-Known-Names.html#Reading-a-NetCDF-Dataset-with-Known-Names">Read an existing NetCDF Dataset</a></h5>
+<br>
+To read our image store in netCDF format, the sequence of calls will be similar but nf90_put_var is replaced by nf90_get_var:
+<ol>
+<li><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/NF90_005fCREATE.html#NF90_005fCREATE">NF90_CREATE</a>: create netCDF dataset: enter define mode
+</li>
+<li><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/NF90_005fDEF_005fDIM.html#NF90_005fDEF_005fDIM">NF90_DEF_DIM</a>: define dimensions: from name and length
+</li>
+<li><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/NF90_005fDEF_005fVAR.html#NF90_005fDEF_005fVAR">NF90_DEF_VAR</a>: define variables: from name, type, dims
+</li>
+<li><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/NF90_005fENDDEF.html#NF90_005fENDDEF">NF90_ENDDEF</a>:  end definitions: leave define mode
+</li>
+<li><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/NF90_005fGET_005fVAR.html#NF90_005fGET_005fVAR">NF90_GET_VAR</a> :  provide values for variable
+</li>
+<li><a href="http://www.unidata.ucar.edu/software/netcdf/netcdf-4/newdocs/netcdf-f90/NF90_005fCLOSE.html#NF90_005fCLOSE">NF90_CLOSE</a>:    close: save new netCDF dataset
+</li>
+</ol>
+
+<br>
+<br>
+
+<h2 id="frequency">Frequency filtering using FFT</h2>
+<br>
+Frequency filters process an image in the frequency domain. 
+The image is <a href="https://en.wikipedia.org/wiki/Fourier_transform">Fourier transformed</a>, multiplied with the filter function and then re-transformed into the spatial domain. 
+
+<br>
+The operator usually takes an image and a filter function in the Fourier domain. This image is then multiplied with the filter function 
+in a pixel-by-pixel fashion:
+
+<pre>
+G(i,j) = F(i,j) H(i,j)
+</pre>
+where F(i,j) is the input image in the Fourier domain (obtained after applying a Fourier transform to the original image), 
+H(i,j) the filter function and G(i,j) is the filtered image. 
+<br>
+To obtain the resulting image in the spatial domain, G(i,j) has to be re-transformed using the inverse Fourier Transform.
+<br>
+<br>
+
+<h3>Fourier transforms</h3>
+For this project, we will be using an existing library called <a href="http://www.fftw.org">FFTW 3</a>. The FFTW software library 
+consists of pre-written code and  subroutines for computing the Fourier transform in one or more dimensions, of arbitrary 
+input size, and of both real and complex data (as well as of even/odd data, i.e. the discrete cosine/sine transforms or DCT/DST).
+<br>
+FFTW is a free software library and was developed at MIT by Matteo Frigo and Steven G. Johnson. It is written in 
+<a href="https://en.wikipedia.org/wiki/C_(programming_language)">C language</a> and is very portable (can be installed on every computer
+where a C compiler is available). It provides users with both C and 
+<a href="http://www.fftw.org/doc/Calling-FFTW-from-Legacy-Fortran.html">Fortran</a> interfaces.
+<br>
+FFTW 3 is available on sverdrup and can be installed anywhere (see <a href="http://www.fftw.org/download.html">download page</a>). To set up
+your environment on sverdrup:
+<pre>
+module load fftw/3.3.4
+</pre>
+Then you can use the environment variable FFTW_HOME for compiling (see example below).
+<br>
+If you wish to install FFTW on your machine or laptop, make sure you install/use FFTW3 (FFTW 2.1.5 is obsolete).
+<br>
+FFTW is designed to be used in the following way:
+<ol>
+<li>Create a plan.</li>
+<li>Use the plan to perform FFTs</li>
+<li>Destroy the plan</li>
+</ol>
+For our project, the <a href="http://www.fftw.org/doc/Calling-FFTW-from-Legacy-Fortran.html">Fortran </a> 
+interface will be used and we are interested in applying <a href="http://www.fftw.org/fftw3_doc/Multi_002dDimensional-DFTs-of-Real-Data.html#Multi_002dDimensional-DFTs-of-Real-Data">DFT on 2D arrays</a> (images).
+Examples can be found <a href="http://www.fftw.org/doc/Fortran-Examples.html#Fortran-Examples">here</a>.
+
+<pre>
+double precision :: in(M,N)
+double complex   :: out(M/2 + 1,N)
+integer(kind=8)  :: plan
+     
+call dfftw_plan_dft_r2c_2d(plan,M,N,in,out,FFTW_ESTIMATE)
+call dfftw_execute_dft_r2c(plan, in, out)
+call dfftw_destroy_plan(plan)
+</pre>
+
+"2d" means FFTW will be applied on a 2D array and "r2c" means real to complex (use c2r when your input array is a complex and your outputarray a real).
+<br>
+To compile and link your Fortran program with FFTW on sverdrup:
+<pre>
+# Set uo your environment
+module load fftw/3.3.4
+
+# Compile and link
+gfortran -o fftw3_example.exe fftw3_example.f90 -I$FFTW_HOME/include -L$FFTW_HOME/lib -lfftw3
+
+# Execute your program
+./fftw3_example.exe
+</pre>
+<br>
+The full documentation for this package can be found <a href="http://www.fftw.org/fftw3_doc/">here</a>. You can also consult the <a href="http://www.fftw.org/faq/">FAQ</a>.
+<br>
+<br>
+<h3>Filter functions</h3>
+The form of the filter function (H) determines the effects of the operator. There are basically three different kinds of filters: 
+<ol>
+<li>low-pass filters</li>
+<li>high-pass filters</li>
+<li>band-pass filters</li>
+</ol>
+<h3>Low-pass Filters</h3>
+A low-pass filter attenuates high frequencies and retains low frequencies unchanged. The result in the spatial domain is equivalent
+to that of a smoothing filter; as the blocked high frequencies correspond to sharp intensity changes, i.e. to the fine-scale 
+details and noise in the spatial domain image. 
+<br>
+
+The most simple lowpass filter is the ideal lowpass. It suppresses all frequencies higher than the cut-off frequency D0 and 
+leaves smaller frequencies unchanged:
+<br>
+<img src="../images/eqnfreq2.gif">
+<br>
+
+<br>
+<h3>High-pass Filters</h3>
+A high-pass filter, on the other hand, yields edge enhancement or edge detection in the spatial domain, because edges contain 
+many high frequencies. Areas of rather constant graylevel consist of mainly low frequencies and are therefore suppressed. 
+<br>
+We obtain a highpass filter function by inverting the corresponding lowpass filter, e.g. 
+an ideal highpass filter blocks all frequencies smaller than D0 and leaves the others unchanged.
+<br>
+<br>
+<h3>Band-pass Filters</h3>
+A band-pass attenuates very low and very high frequencies, but retains a middle range band of frequencies. 
+Band-pass filtering can be used to enhance edges (suppressing low frequencies) while reducing the noise at the same time 
+(attenuating high frequencies).
+<br>
+They attenuate all frequencies smaller than a frequency D0 and higher than a frequency D1, while the frequencies 
+between the two cut-offs remain in the resulting output image.
+<br>
+We obtain the filter function of a bandpass by multiplying the filter functions of a lowpass and of a highpass in the
+ frequency domain, where the cut-off frequency of the lowpass is higher than that of the highpass.
+
+ <br>
+ <br>
+Instead of using one of the standard filter functions, you can also create your own filter mask, thus enhancing or 
+suppressing only certain frequencies. In this way you could, for example, remove periodic patterns with a certain direction
+ in the resulting spatial domain image.
+<br>
+
+<br>
+
+<h2 id="performance">Performance analysis: timing your application</h2>
+<br>
+It is important to be able to time your application and have a detailed overview of the performance of your code.
+ For this, you will implement a Fortran module containing routines to time each subroutine/functions of your tools.  We wish to have a standardized outputs such as:
+ <pre>
+      Copyright (C) 2016, UIO
+
+     Process CPU Time (s) | Process Elapsed Time (s) 
+     =====================|==========================
+               0.030      |           0.030               
+     =====================|==========================
+
+     Started on 04/03/2015 at 21:10:18 MET +01:00 from GMT
+     Stopped on 04/03/2015 at 21:10:18 MET +01:00 from GMT
+ </pre>
+ <br>
+ CPU time is the time for which the CPU was busy executing the task. It does not take into account the time spent in waiting for I/O (disk IO or network IO). Since I/O operations, such as reading files from disk, are performed by the OS, these operations may involve noticeable amount of time in waiting for I/O subsystems to complete their operations. This waiting time will be included in the elapsed time, but not CPU time. Hence CPU time is usually less than the elapsed time.
+<br>
+ To measure the CPU time of your code, you can use <a href="https://gcc.gnu.org/onlinedocs/gcc-5.2.0/gfortran/CPU_005fTIME.html">CPU_TIME</a> Fortran intrinsic subroutine:
+ <pre>
+   REAL(kind=8)  :: start_time, end_time
+   ...
+   call CPU_time(start_time)
+   ... 
+   call CPU_time(end_time)
+   
+   print*, 'CPU time = ', end_time - start_time
+ </pre>
+ 
+ To measure the elasped time, you can use <a href="https://gcc.gnu.org/onlinedocs/gfortran/SYSTEM_005fCLOCK.html">SYSTEM_CLOCK</a>:
+ <pre>
+   INTEGER      :: ir
+   INTEGER      :: elapsed_time_start, elapsesd_time_end 
+   ...
+  CALL SYSTEM_CLOCK(COUNT=elapsed_time_start, count_rate=ir)
+  ...
+  
+  CALL SYSTEM_CLOCK(COUNT=elapsed_time_end)
+  print*, 'Elapsed time = ', (elapsed_time_end - elapsed_time_start ) / real(ir)
+ </pre>
+ When running a code in "production" i.e. to get scientific results (not during the development phase), you would like to
+ disable these timings as they may slow down your code.
+ <br><br>
+ For this you can for instance define a logical called USE_TIMING which call timing routines when true; for instance:
+ <pre>
+ LOGICAL :: USE_TIMING
+ ...
+ if (USE_TIMING) call timeAppInit()
+ ...
+ if (USE_TIMING) call timeAppEnd()
+ </pre>
+ <br>
+ The value of USE_TIMING will be an input parameter of your tool (value chosen by users).
+<br>
+<br>
+<h2 id="summary">Work to do</h2>
+<br>
+
+<h3 id="ex1">Read/Write methods</h3>
+<br>
+<ol>
+<li>Define a Fortran 2003 module and associated methods (subroutines/functions) to read and write the various data formats
+ (PGMA, PGMB, PPMA, PPMB, PBM, CDL, netCDF)</li>
+<li>Create a sample program to test all these methods</li>
+</ol>
+
+<h3 id="conversion">Convert formats</h3>
+<br>
+We wish to be able to convert an image/file from one format to another. 
+<ol>
+<li>Write all the necessary methods to do so</li>
+<li>Create s sample program to test all these methods</li>
+</ol>
+<br>
+<br>
+<h3 id="selection">Size reduction or sub-area</h3>
+<br>
+<ol>
+<li>Write 2 different methods to reduce by a factor F the size of an image:
+<ul>
+<li>method-1:keep the pixel (i,j) of an image if modulo(i,F) and modulo(j,F) are both null.</li>
+<li>method-2:compute the average over a box FxF. For instance if F=3, compute the average over a 3x3 box:
+<br>
+<img src="../images/ushadf2.gif"></li>
+</ul>
+</li>
+<li>Write a method to select a sub-area of an image: user gives the origin (x0,y0) and the number of point to select in x and y</li>
+<li>Write a program to test all these methods and make sure the user can select which method to test</li>
+</ol>
+<br>
+<br>
+<h3 id="ex2">Timing methods</h3>
+<ol>
+<li>Write a module with methods for timing your applications using the framework detailed <a href=#performance>previously</a>.</li>
+<li>Write a program to test all the methods of your module</li>
+</ol>
+<h3 id="ex3">Fortran 2003 data structures (class)</h3>
+Depending on how you previously defined your data structures, it may or may not be Fortran 2003 (classes) yet. Here the goal is to
+define Fortran 2003 classes for all the different data formats.
+<ul>
+<li>
+</ul>
+<h3 id="ex8">The final library</h3>
+<br>
+Write a final main program where the user:
+<ol>
+<li>can pass the name of a file (any data format)</li>
+<li>can choose which method to apply on this image (convert to another format, filter, reduce, etc.)</li>
+<li>can choose the output format of the resulting image as well as its filename</li>
+<li>can choose to get a log file containing information on the run (which methods were called, time spent in each subroutine, etc.). 
+It means a silent mode (no log file) must be provided too.</li>
+</ol>
+<br>
+<h2 id="delivery">The final time of delivery</h2>
+<br>
+The final time of delivery is Friday 27.05.2016 at 23:59
+<br>
+<br>
+<br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</section>
+<footer>
+</footer>
+
+</div>
+<script src="javascripts/scale.fix.js"></script>
+</body></html>
