@@ -26,6 +26,29 @@ viewed as a collection of interacting, but mostly independent software component
 These software components are known as objects and they are typically implemented 
 in a programming language as an entity that encapsulates both data and procedures. 
 <br>
+A very simple one page course is available <a href="http://www.csse.monash.edu.au/~cema/courses/CSE5910/lectureFiles/lecture1b.htm">here</a>.
+It explains from a simple example the following concepts:
+<ul>
+<li>Abstraction</li>
+<li>Encapsulation</li>
+<li>Hierarchy and Inheritance</li>
+<li>Typing</li>
+<li>Genericity</li>
+</ul>
+<br>
+For this lesson, we start from our pgmImage derived type and explain how to change it to a Fortran 2003 Object-oriented data 
+structure (class). Then on this example we explain what we mean by abstraction, encapsulation, hierarchy and 
+inheritance.
+<br>
+<h2>Abstraction</h2>
+If we go back to one of our first lesson, we defined a pgmImage as being a simple 2D array. Then we wrote two subroutines to read a pgmImage 
+because we have pgm images written and stored as ASCII files (text files) and pgm images written and stored as binary files.
+
+One significant commonality between PGMA and PGMB is that images are both PGM images and the "only" difference is when the image is read or written.
+Other processing on the image is identical. This is what we call abstraction: finding the significant commonalities and ignore trivial differences.
+<br>
+<br>
+<h2>Encapsulation</h2>
 What we have seen with derived types is closed to OOP in the sense that variables of a derived-type were all grouped together inside the created derived type
 (as they belong to the same entity):
 <pre>
@@ -110,6 +133,8 @@ program matrix_main
 end program matrix_main
 </pre>
 <br>
+<br>
+<h2>Hierarchy and inheritance</h2>
 The CLASS keyword allows F2003 programmers to create polymorphic variables. 
 Polymorphism is a term used in software development to describe a variety of 
 techniques employed by programmers to create 
@@ -326,6 +351,8 @@ program matrix_main
  
 end program matrix_main
 </pre>
+<br>
+<br>
 
 <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 
