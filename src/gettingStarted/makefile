@@ -12,7 +12,11 @@ FCFLAGS += -I/usr/include
 # List of executables to be built within the package
 PROGRAMS =  free_format               \
             select_kind               \
+            kind_int_types            \
+            kind_real_precision       \
+            kind_real_range           \
             variables                 \
+            define_constants          \
             initialize_stack          \
             inv                       \
             inv_checks                \
