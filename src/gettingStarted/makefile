@@ -15,6 +15,7 @@ PROGRAMS =  free_format               \
             kind_int_types            \
             kind_real_precision       \
             kind_real_range           \
+            kind_real_all             \
             variables                 \
             define_constants          \
             initialize_stack          \
