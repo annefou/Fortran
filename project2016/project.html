@@ -297,6 +297,20 @@ Many netCDF examples can be found at <a href="http://www.unidata.ucar.edu/softwa
 <li>Fortran 90: <a href="http://www.unidata.ucar.edu/software/netcdf/examples/programs/simple_xy_rd.f90">simple_xy_rd.f90</a>: to read the netCDF file generated with <a href="http://www.unidata.ucar.edu/software/netcdf/examples/programs/simple_xy_wr.f90">simple_xy_wr.f90</a></li>
 </ul>
 <br>
+To set up your environment on sverdrup:
+<pre>
+module load netcdf/4.4.0_gnu5.2.0
+</pre>
+Then you can use the environment variable NETCDF_HOME or NETCDF_FFLAGS and NETCDF_LDFLAGS for compiling:
+<pre>
+gfortran simple_xy_wr.f90 $NETCDF_FFLAGS $NETCDF_LDFLAGS
+</pre>
+and to read the new created netCDF file:
+<pre>
+gfortran simple_xy_rd.f90 $NETCDF_FFLAGS $NETCDF_LDFLAGS
+</pre>
+<br>
+<br>
 In these two previous examples, we will use the following Fortran 90 subroutines:
 <br>
 <br>
