@@ -1,0 +1,151 @@
+<!DOCTYPE html>  
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<title>GEO4060 Project Assignment 2017: A toolset for processing observational data</title>
+    <link rel="stylesheet" href="../stylesheets/substyles.css">
+    <link rel="stylesheet" href="../stylesheets/pygment_trac.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+
+  <body>
+<div class="wrapper"> <header> </header>
+<header>
+This note describes the project assignment for GEO4060 course 2017. The text contains some (simple) mathematics and there is no need for a thorough understanding of concepts like matrices and vectors to do the project.
+
+</header>
+<section>
+
+<h1>GEO4060 Project Assignment 2017</h1>
+<h1>A toolset for processing observational data</h1>
+<br>
+<br>
+<br>
+<ul>
+<li><a href=#requirements>Requirements</a></li>
+<li><a href=#formats>Data formats</a></li>
+<li><a href=#summary>Work to do</a></li>
+<li><a href=#delivery>The final time of delivery</a></li>
+</ul>
+<br>
+<br>
+<h2 id="requirements">Requirements</h2>
+<br>
+There are some requirements on tools and packaging:
+<ul>
+  <li>For this project use the GitHub code repository <a href="https://github.uio.no/annefou/GEO4060_2017">https://github.uio.no/annefou/GEO4060_2017</a></li>
+<li>Create your own branch (use your username for the name of your branch) and regularly commit all your codes. Use your git branch rather than keeping code completely out of the repository.</li>
+<li>Within your branch, create a directory called <b>Project</b> where you will store your project source codes and documentation</li>
+<li>Do not forget to comment your codes...</li>
+  <li>The project must be fully automatically buildable, runnable, and testable on a generic linux desktop, using at least the GNU Fortran >= 5.2.0 compiler.</li>
+</ul>
+
+<br>
+<br>
+<h2 id="formats">Data formats</h2>
+<br>
+Input data will be provided in two different formats:
+<ul>
+<li><a href=#ascii>ascii (text) data format</a>
+</li>
+<li><a href=#binaryF>Binary unformatted stream data format</a>
+</li>
+</ul>
+<br>
+<br>
+Examples of files stored in these three differents formats can be found <a href="https://github.uio.no/annefou/GEO4060_2017/Project">here</a>. However, the toolset is meant to be used with large files and you should not make an hypothesis on their sizes.
+<br>
+<br>
+
+<h3 id="ascii">ASCII (text) data format</h3>
+We will get data in column-based ascii format with a header containing the name of each column. Each row, including the header are separated by blanks or/and tabs (in Fortran use achar(9) to identify the tab character. The number of columns and rows can vary from one file to another and you should not make any assumption when processing an input file.
+
+One ASCII (text) Observation file contains:
+<ol>
+    <li>A header containing column names as string. 
+    </li>
+    <li> The following rows have the same width (number of columns) than the header row but contain values. The type of each column depends on the column name and can be of type integer, real or string (with no more than 8 characters and delimited by single quotes).
+    </li>
+</ol>
+<pre>
+expver lat@hdr lon@hdr obsvalue@body
+'0001' 12.5  	40.6 	214.3
+'0002' 32.5  	30.6 	263.101
+</pre>
+We assume all ASCII input files have ".txt" as a file extension.
+<br>
+<br>
+<h4 id="binaryF">Binary format</h4>
+<br>
+The binary format is similar to the ASCII (TEXT) format. 
+The first line of the binary file contains a header with all the column names.
+All the rows, including the header, are written as strings, each column being separated by blanks and/or tabs.
+We assume all binary input files have ".bin" as a file extension.
+<br>
+<br>
+
+<h2 id="summary">Work to do</h2>
+
+<br>
+<h3>Main program </h3>
+Create a unique main program called "obs.x" with the following options:</li>
+<ul>
+<li><b>-i</b>: followed by an input filename to process. For instance:
+<br>
+<pre>obs.x -i conv_ofb.txt</pre> 
+<br>
+<li><b>-o</b>: followed by an output filename to store the output results. For instance:
+<pre>obs.x -o conv_ofb.bin</pre> 
+<br>
+The file extension gives the output format: (".bin" for binary or ".txt" for text/ASCII files).
+<li><b>-s</b>: select a subset of columns. The list of columns to select is given as a comma separated list of column names given after "-s". For instance:
+<br>
+<pre>obs.x -s lat@hdr,lon@hdr,obsvalue@hdr</pre>
+</li>
+<li><b>-w</b>: select a subset of rows. The condition is given as a column name followed by a relational operator (/=, =,<,>,<=,>=) and a value. The relational operators are as in Fortran (same meaning). On a single command line, more than one condition can be given with several "-w". For instance:<br>
+<pre>obs.x -w lat@hdr&gt;=50.0 -w lat@hdr&lt;70.0</pre>  </li>
+</ul> 
+All these options can be combined. For instance:
+<br>
+<pre>obs.x -i conv_ofb.txt -o conv_sel.txt -s lat@hdr,lon@hdr,obsvalue@hdr</pre>
+<pre>obs.x -i conv_ofb.txt -o conv_sel.txt -s lat@hdr,lon@hdr,obsvalue@hdr \
+         -w obsvalue/=NULL</pre>
+<br>
+<br>
+<h3>Tests</h3>
+Create tests for all the classes and methods defined in your Fortran 2003 module. These tests will be performed when running the command:
+<br>
+<pre>obs.x test</pre>
+<br>
+This set of tests should return "ALL TESTS PASSED" if successful or "X TESTS FAILED" if X tests failed (X is an integer). </li>
+
+<br>
+<br>
+<h3>Compression</h3>
+<ul>
+<li> Use your program to convert a text/ascii input file into a binary file:</li>
+<br>
+<pre>obs.x -i conv_ofb.txt -o conv_ofb.bin</pre>
+<br>
+<li>Compare the sizes of these two files. Is it expected? Explain why.</li>
+<li>Suggest a more compress binary format</li>
+<li>Implement (read/write methods) your new binary format</li>
+</ul>
+<br>
+<br>
+<h2 id="delivery">The final time of delivery</h2>
+<br>
+The final time of delivery is Friday 26.05.2017 at 23:59
+<br>
+<br>
+<br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+</section>
+<footer>
+</footer>
+
+</div>
+<script src="javascripts/scale.fix.js"></script>
+</body></html>
